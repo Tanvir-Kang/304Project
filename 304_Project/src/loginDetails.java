@@ -1,8 +1,8 @@
 
 public class loginDetails {
-	String uid = "<USERNAME>";
-	String pw = "<PASSWORD>";
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_<USERNAME>;";
+	String uid = "zmaludzi";
+	String pw = "32950164";
+	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_zmaludzi;";
 	
 	public String getUid() {
 		return uid;

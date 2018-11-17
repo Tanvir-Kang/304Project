@@ -15,10 +15,14 @@ try {
 } catch (java.lang.ClassNotFoundException e) {
 	out.println("ClassNotFoundException: " + e);
 // Making connection
-	
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_speters;";
-	String uid = "speters";
-	String pw = "63685507";
+
+
+		loginDetails ld = new loginDetails();
+		String url = ld.getUrl();
+		String uid = ld.getUid();
+		String pw = ld.getPw();
+
+
 
 Connection con = DriverManager.getConnection(url, uid, pw);
 

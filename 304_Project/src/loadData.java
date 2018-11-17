@@ -17,7 +17,6 @@ public class loadData
 	public static void loadData() throws Exception
 	{		
 		loginDetails ld = new loginDetails();
-		// TODO: Fill-in
 		String url = ld.getUrl();
 		String uid = ld.getUid();
 		String pw = ld.getPw();
