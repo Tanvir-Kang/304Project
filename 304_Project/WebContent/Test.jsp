@@ -14,6 +14,7 @@ try {
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 } catch (java.lang.ClassNotFoundException e) {
 	out.println("ClassNotFoundException: " + e);
+}
 // Making connection
 
 
@@ -32,7 +33,6 @@ ResultSet rst = pstmt.executeQuery();
 while(rst.next()){
 	out.print(rst.getString("userName"));
 }
-
 %>
 </body>
 </html>
