@@ -16,10 +16,11 @@ public class loadData
 	
 	public static void loadData() throws Exception
 	{		
+		loginDetails ld = new loginDetails();
 		// TODO: Fill-in
-		String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_zmaludzi;";
-		String uid = "zmaludzi";
-		String pw = "32950164";
+		String url = ld.getUrl();
+		String uid = ld.getUid();
+		String pw = ld.getPw();
 		
 		System.out.println("Connecting to database.");
 
