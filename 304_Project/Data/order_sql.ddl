@@ -1,4 +1,18 @@
-CREATE TABLE User(
+DROP TABLE Book;
+DROP TABLE Complaint;
+DROP TABLE Bids;
+DROP TABLE ShippingAddress;
+DROP TABLE Shipment;
+DROP TABLE CreditCard;
+DROP TABLE Paypal;
+DROP TABLE Bitcoin;
+DROP TABLE Auction;
+DROP TABLE Company;
+DROP TABLE PaymentInfo;
+DROP TABLE webUser;
+
+
+CREATE TABLE webUser(
 	userName  VARCHAR(30)    NOT  NULL,
 	password     VARCHAR(20),
 	firstName   VARCHAR(30),
@@ -10,81 +24,67 @@ CREATE TABLE User(
 );
 
 CREATE TABLE PaymentInfo(
-	billingAddress   VARCHAR(50) NOT  NULL,
 	buyerUserName  VARCHAR(30)    NOT  NULL,
+	billingAddress   VARCHAR(50) NOT  NULL,
 	PRIMARY KEY (billingAddress,buyerUserName),
-	CONSTRAINT FK_PaymentInfo_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName) ON DELETE NO action ON UPDATE CASCADE
+	CONSTRAINT FK_PaymentInfo_webUser FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName) ON DELETE NO action ON UPDATE CASCADE
 );
 
 CREATE TABLE Company(
-	invioceID     INTEGER  NOT NULL,
-	auctionID   INTEGER,
-	auctionFee     DOUBLE,
+	invioceID     int  NOT NULL,
+	auctionFee     decimal(15,2),
 	PRIMARY KEY (invioceID)
-	);
+);
 
 CREATE TABLE Auction(
-	auctionID INTEGER NOT NULL,
+	auctionID int NOT NULL,
 	billingAddress   VARCHAR(50),
-	buyerUserName  VARCHAR(30),
 	startDate  DATETIME,
 	endDate  DATETIME,
-	highestBid   DOUBLE,
+	highestBid   decimal(15,2),
 	sellerUserName  VARCHAR(30),
-	invioceID     INTEGER ,
+	buyerUserName  VARCHAR(30),
+	invioceID     int ,
 	PRIMARY KEY (auctionID),
-	CONSTRAINT FK_Auction_User FOREIGN KEY (sellerUserName)  REFERENCES  User(userName),
-	CONSTRAINT FK_Auction_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress),
-	CONSTRAINT FK_Auction_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName)
+	CONSTRAINT FK_Auction_webUser FOREIGN KEY (sellerUserName)  REFERENCES  webUser(userName),
+	CONSTRAINT FK_Auction_PaymentInfo FOREIGN KEY (billingAddress,buyerUserName)  REFERENCES  PaymentInfo(billingAddress,buyerUserName),
 	CONSTRAINT FK_Auction_Company FOREIGN KEY (invioceID)  REFERENCES Company(invioceID)
 );
 
 CREATE TABLE Book (
 	ISBN   VARCHAR(50)       NOT NULL,
-	auctionID   INTEGER      NOT NULL,
+	auctionID   int      NOT NULL,
 	title  VARCHAR(30),
 	sellerUserName  VARCHAR(30)  NOT NULL,
 	subject     VARCHAR(30),
 	author   VARCHAR(30),
 	edition    INTEGER,
-	quality     INTEGER,
-	startPrice   DECIMAL(15,2),
+	quality     int,
+	startPrice   decimal(15,2),
 	description  VARCHAR(150),
 	PRIMARY KEY (auctionID,sellerUserName,ISBN),
 	CONSTRAINT FK_Book_Auction FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID),
-	CONSTRAINT FK_Book_User FOREIGN KEY (sellerUserName)  REFERENCES User(userName)
-);
-
-CREATE TABLE Paypal(
-	email  VARCHAR(50),
-	passward   VARCHAR (50),
-	buyerUserName  VARCHAR(30),
-	billingAddress   VARCHAR(50),
-	PRIMARY KEY (email,buyerUserName,billingAddress),	
-	CONSTRAINT FK_Paypal_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
-	CONSTRAINT FK_Paypal_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+	CONSTRAINT FK_Book_User FOREIGN KEY (sellerUserName)  REFERENCES webUser(userName)
 );
 
 CREATE TABLE Complaint(
-	complaintID  INTEGER NOT NULL,
-	auctionID   INTEGER ,
+	complaintID  int NOT NULL,
+	auctionID   int ,
 	sellerUserName  VARCHAR(30),
 	buyerUserName VARCHAR(30),
 	description   VARCHAR(150),
 	dateSubmitted   DATE,
 	PRIMARY KEY (complaintID),
-	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (sellerUserName)  REFERENCES  Auction(sellerUserName),
-	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (buyerUserName)  REFERENCES  Auction(buyerUserName),
-	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
+	CONSTRAINT FK_Complaint1_Auction FOREIGN KEY (sellerUserName,buyerUserName,auctionID)  REFERENCES  Auction(sellerUserName,buyerUserName,auctionID)
 );
 
 CREATE TABLE Bids(
-	auctionID   INTEGER  NOT NULL,
+	auctionID   int  NOT NULL,
 	buyerUserName VARCHAR(30)  NOT NULL,
-	bidAmount  DOUBLE,
+	bidAmount  decimal(15,2),
 	dates   DATETIME,
-	PRIMARY KEY (buyerUserName,auctionid),
-	CONSTRAINT FK_Bids_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName),
+	PRIMARY KEY (buyerUserName,auctionID),
+	CONSTRAINT FK_Bids_User FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName),
 	CONSTRAINT FK_Bids_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
 );
 
@@ -96,48 +96,55 @@ CREATE TABLE ShippingAddress(
 	provinceState    VARCHAR(50),
 	country   VARCHAR(50),
 	PRIMARY KEY (userName, postalZipcode),
-	CONSTRAINT FK_ShippingAddress_User FOREIGN KEY (userName)  REFERENCES User(userName)
+	CONSTRAINT FK_ShippingAddress_webUser FOREIGN KEY (userName)  REFERENCES webUser(userName)
 ) ;
 
 CREATE TABLE Shipment(
-	shipmentID  INTEGER  NOT NULL,
-	auctionID INTEGER  NOT NULL,
+	shipmentID  int  NOT NULL,
+	auctionID int NOT NULL,
 	senderUserName    VARCHAR(30),
-	recipientUserName      VARCHAR(30),
+	reciverUserName      VARCHAR(30),
 	PRIMARY KEY (shipmentID),
-	CONSTRAINT FK_Shipment_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID),
-	CONSTRAINT FK_Shipment_ShippingAddress FOREIGN KEY (recipientUserName)  REFERENCES  ShippingAddress(userName),
+	CONSTRAINT FK_Shipment_Auction FOREIGN KEY (auctionID,recipientUserName,senderUserName)  REFERENCES  Auction(auctionID),
 	CONSTRAINT FK_Shipment_ShippingAddress FOREIGN KEY (senderUserName)  REFERENCES  ShippingAddress(userName)
 ) ;
 
+CREATE TABLE Paypal(
+	email  VARCHAR(50),
+	passward   VARCHAR (50),
+	buyerUserName  VARCHAR(30),
+	billingAddress   VARCHAR(50),
+	PRIMARY KEY (email,buyerUserName,billingAddress),	
+	CONSTRAINT FK_Auction3_PaymentInfo3 FOREIGN KEY (billingAddress,buyerUserName)  REFERENCES  PaymentInfo(billingAddress,buyerUserName)
+);
+
 CREATE TABLE CreditCard(
-	cardNumber   FLOAT  NOT NULL,
-	expiry  INTEGER  NOT NULL,
-	securityCode   INTEGER NOT NULL,
+	cardNumber   float  NOT NULL,
+	expire  int  NOT NULL,
+	securityCode   int  NOT NULL,
 	billingAddress   VARCHAR(50),
 	nameOnCard  VARCHAR(50),
-	buyerUserName   VARCHAR(50),
+	buyerUserName   VARCHAR(30),
 	PRIMARY KEY (cardNumber,expire,securityCode,buyerUserName,billingAddress),
-	CONSTRAINT FK_CreditCard_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
-	CONSTRAINT FK_CreditCard_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+	CONSTRAINT FK_Auction2_PaymentInfo2 FOREIGN KEY (billingAddress,buyerUserName)  REFERENCES  PaymentInfo(billingAddress,buyerUserName)
 );
 
 CREATE TABLE Bitcoin(
 	address   VARCHAR(30),
 	quantity  DECIMAL(15,2),
-	buyeruserName   VARCHAR(30),
+	buyerUserName   VARCHAR(30),
 	billingAddress   VARCHAR(50),
 	PRIMARY KEY (address,buyerUserName,billingAddress),
-	CONSTRAINT FK_Bitcoin_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
-	CONSTRAINT FK_Bitcoin_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+	CONSTRAINT FK_Auction1_PaymentInfo1 FOREIGN KEY (billingAddress,buyerUserName)  REFERENCES  PaymentInfo(billingAddress,buyerUserName)
 ); 
 
-INSERT INTO User VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05');
-INSERT INTO User VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04');
-INSERT INTO User VALUES ('user1','password1','fname1','lname1','email1', 'phone1','1990-01-01');
-INSERT INTO User VALUES ('user2','password2','fname2','lname2','email1','phone2','1990-01-01');
-INSERT INTO User VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01');
-INSERT INTO User VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
-INSERT INTO User VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
-INSERT INTO User (userName, password) VALUES ('admin','admin');
+INSERT INTO webUser VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05');
+INSERT INTO webUser VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04');
+INSERT INTO webUser VALUES ('user1','password1','fname1','lname1','email1', 'phone1','1990-01-01');
+INSERT INTO webUser VALUES ('user2','password2','fname2','lname2','email1','phone2','1990-01-01');
+INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01');
+INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
+INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
+INSERT INTO webUser (userName, password) VALUES ('admin','admin');
+
 
