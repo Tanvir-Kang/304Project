@@ -9,9 +9,17 @@
 </head>
 <body>
 <%
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=<DATABASE_NAME>;";
-String uid = "zmaludzi";
-String pw = "32950164";
+
+try { 
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+} catch (java.lang.ClassNotFoundException e) {
+	out.println("ClassNotFoundException: " + e);
+// Making connection
+	
+	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_speters;";
+	String uid = "speters";
+	String pw = "63685507";
+
 Connection con = DriverManager.getConnection(url, uid, pw);
 
 String SQL = "select userName from User";

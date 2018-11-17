@@ -21,6 +21,7 @@ public class loadData
 		String url = ld.getUrl();
 		String uid = ld.getUid();
 		String pw = ld.getPw();
+
 		
 		System.out.println("Connecting to database.");
 

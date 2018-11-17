@@ -134,3 +134,10 @@ CREATE TABLE Bitcoin(
 
 INSERT INTO User VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05');
 INSERT INTO User VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04');
+INSERT INTO User VALUES ('user1','password1','fname1','lname1','email1', 'phone1','1990-01-01');
+INSERT INTO User VALUES ('user2','password2','fname2','lname2','email1','phone2','1990-01-01');
+INSERT INTO User VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01');
+INSERT INTO User VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
+INSERT INTO User VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
+INSERT INTO User (userName, password) VALUES ('admin','admin');
+
