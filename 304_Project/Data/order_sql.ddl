@@ -7,14 +7,21 @@ CREATE TABLE User(
 	phonenum  VARCHAR(12),
 	birthdate  DATE,
 	PRIMARY KEY (userName)
-)
+);
 
 CREATE TABLE PaymentInfo(
 	billingAddress   VARCHAR(50) NOT  NULL,
 	buyerUserName  VARCHAR(30)    NOT  NULL,
 	PRIMARY KEY (billingAddress,buyerUserName),
-	FOREIGN KEY (buyerUserName)  REFERENCES  User(userName) ON DELETE NO action ON UPDATE CASCADE
-)
+	CONSTRAINT FK_PaymentInfo_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName) ON DELETE NO action ON UPDATE CASCADE
+);
+
+CREATE TABLE Company(
+	invioceID     INTEGER  NOT NULL,
+	auctionID   INTEGER,
+	auctionFee     DOUBLE,
+	PRIMARY KEY (invioceID)
+	);
 
 CREATE TABLE Auction(
 	auctionID INTEGER NOT NULL,
@@ -24,19 +31,13 @@ CREATE TABLE Auction(
 	endDate  DATETIME,
 	highestBid   DOUBLE,
 	sellerUserName  VARCHAR(30),
+	invioceID     INTEGER ,
 	PRIMARY KEY (auctionID),
-	FOREIGN KEY (sellerUserName)  REFERENCES  User(userName) ON DELETE SET NULL ON UPDATE CASCADE,
-	FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress) ON DELETE SET NULL ON UPDATE CASCADE,
-	FOREIGN KEY (buyerUserName)  REFERENCES  User(userName) ON DELETE NO action ON UPDATE CASCADE
-)
-
-CREATE TABLE Company(
-	invioceID     INTEGER  NOT NULL,
-	auctionID   INTEGER,
-	auctionFee     DOUBLE,
-	PRIMARY KEY (invioceID),
-	FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID) ON DELETE SET NULL ON UPDATE CASCADE
-	)
+	CONSTRAINT FK_Auction_User FOREIGN KEY (sellerUserName)  REFERENCES  User(userName),
+	CONSTRAINT FK_Auction_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress),
+	CONSTRAINT FK_Auction_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName)
+	CONSTRAINT FK_Auction_Company FOREIGN KEY (invioceID)  REFERENCES Company(invioceID)
+);
 
 CREATE TABLE Book (
 	ISBN   VARCHAR(50)       NOT NULL,
@@ -50,9 +51,9 @@ CREATE TABLE Book (
 	startPrice   DECIMAL(15,2),
 	description  VARCHAR(150),
 	PRIMARY KEY (auctionID,sellerUserName,ISBN),
-	FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (sellerUserName)  REFERENCES User(userName) ON DELETE NO action ON UPDATE CASCADE
-)
+	CONSTRAINT FK_Book_Auction FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID),
+	CONSTRAINT FK_Book_User FOREIGN KEY (sellerUserName)  REFERENCES User(userName)
+);
 
 CREATE TABLE Paypal(
 	email  VARCHAR(50),
@@ -60,9 +61,9 @@ CREATE TABLE Paypal(
 	buyerUserName  VARCHAR(30),
 	billingAddress   VARCHAR(50),
 	PRIMARY KEY (email,buyerUserName,billingAddress),	
-	FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress) ON DELETE NO action ON UPDATE CASCADE
-)
+	CONSTRAINT FK_Paypal_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
+	CONSTRAINT FK_Paypal_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+);
 
 CREATE TABLE Complaint(
 	complaintID  INTEGER NOT NULL,
@@ -72,10 +73,10 @@ CREATE TABLE Complaint(
 	description   VARCHAR(150),
 	dateSubmitted   DATE,
 	PRIMARY KEY (complaintID),
-	FOREIGN KEY (sellerUserName)  REFERENCES  Auction(sellerUserName) ON DELETE SET NULL ON UPDATE CASCADE,
-	FOREIGN KEY (buyerUserName)  REFERENCES  Auction(buyerUserName) ON DELETE SET NULL ON UPDATE CASCADE,
-	FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID) ON DELETE SET NULL ON UPDATE CASCADE
-)
+	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (sellerUserName)  REFERENCES  Auction(sellerUserName),
+	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (buyerUserName)  REFERENCES  Auction(buyerUserName),
+	CONSTRAINT FK_Complaint_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
+);
 
 CREATE TABLE Bids(
 	auctionID   INTEGER  NOT NULL,
@@ -83,9 +84,9 @@ CREATE TABLE Bids(
 	bidAmount  DOUBLE,
 	dates   DATETIME,
 	PRIMARY KEY (buyerUserName,auctionid),
-	FOREIGN KEY (buyerUserName)  REFERENCES  User(userName) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID) ON DELETE NO action ON UPDATE CASCADE
-)
+	CONSTRAINT FK_Bids_User FOREIGN KEY (buyerUserName)  REFERENCES  User(userName),
+	CONSTRAINT FK_Bids_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
+);
 
 CREATE TABLE ShippingAddress(
 	userName  VARCHAR(30),
@@ -95,8 +96,8 @@ CREATE TABLE ShippingAddress(
 	provinceState    VARCHAR(50),
 	country   VARCHAR(50),
 	PRIMARY KEY (userName, postalZipcode),
-	FOREIGN KEY (userName)  REFERENCES User(userName) ON DELETE NO action ON UPDATE CASCADE
-) 
+	CONSTRAINT FK_ShippingAddress_User FOREIGN KEY (userName)  REFERENCES User(userName)
+) ;
 
 CREATE TABLE Shipment(
 	shipmentID  INTEGER  NOT NULL,
@@ -104,10 +105,10 @@ CREATE TABLE Shipment(
 	senderUserName    VARCHAR(30),
 	recipientUserName      VARCHAR(30),
 	PRIMARY KEY (shipmentID),
-	FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (recipientUserName)  REFERENCES  ShippingAddress(userName) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (senderUserName)  REFERENCES  ShippingAddress(userName) ON DELETE NO action ON UPDATE CASCADE
-) 
+	CONSTRAINT FK_Shipment_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID),
+	CONSTRAINT FK_Shipment_ShippingAddress FOREIGN KEY (recipientUserName)  REFERENCES  ShippingAddress(userName),
+	CONSTRAINT FK_Shipment_ShippingAddress FOREIGN KEY (senderUserName)  REFERENCES  ShippingAddress(userName)
+) ;
 
 CREATE TABLE CreditCard(
 	cardNumber   FLOAT  NOT NULL,
@@ -117,9 +118,9 @@ CREATE TABLE CreditCard(
 	nameOnCard  VARCHAR(50),
 	buyerUserName   VARCHAR(50),
 	PRIMARY KEY (cardNumber,expire,securityCode,buyerUserName,billingAddress),
-	FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress) ON DELETE NO action ON UPDATE CASCADE
-)
+	CONSTRAINT FK_CreditCard_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
+	CONSTRAINT FK_CreditCard_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+);
 
 CREATE TABLE Bitcoin(
 	address   VARCHAR(30),
@@ -127,9 +128,9 @@ CREATE TABLE Bitcoin(
 	buyeruserName   VARCHAR(30),
 	billingAddress   VARCHAR(50),
 	PRIMARY KEY (address,buyerUserName,billingAddress),
-	FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName) ON DELETE NO action ON UPDATE CASCADE,
-	FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress) ON DELETE NO action ON UPDATE CASCADE
-) 
+	CONSTRAINT FK_Bitcoin_PaymentInfo FOREIGN KEY (buyerUserName)  REFERENCES  PaymentInfo(buyerUserName),
+	CONSTRAINT FK_Bitcoin_PaymentInfo FOREIGN KEY (billingAddress)  REFERENCES  PaymentInfo(billingAddress)
+); 
 
 INSERT INTO User VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05');
 INSERT INTO User VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04');
