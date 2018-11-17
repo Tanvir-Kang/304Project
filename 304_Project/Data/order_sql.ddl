@@ -42,8 +42,8 @@ CREATE TABLE Auction(
 	startDate  DATETIME,
 	endDate  DATETIME,
 	highestBid   decimal(15,2),
-	sellerUserName  VARCHAR(30),
-	buyerUserName  VARCHAR(30),
+	sellerUserName  VARCHAR(30) NOT NULL,
+	buyerUserName  VARCHAR(30) NOT NULL,
 	invioceID     int ,
 	PRIMARY KEY (auctionID),
 	CONSTRAINT FK_Auction_webUser FOREIGN KEY (sellerUserName)  REFERENCES  webUser(userName),
@@ -75,7 +75,7 @@ CREATE TABLE Complaint(
 	description   VARCHAR(150),
 	dateSubmitted   DATE,
 	PRIMARY KEY (complaintID),
-	CONSTRAINT FK_Complaint1_Auction FOREIGN KEY (sellerUserName,buyerUserName,auctionID)  REFERENCES  Auction(sellerUserName,buyerUserName,auctionID)
+	CONSTRAINT FK_Complaint2_Auction2 FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID)
 );
 
 CREATE TABLE Bids(
@@ -105,8 +105,7 @@ CREATE TABLE Shipment(
 	senderUserName    VARCHAR(30),
 	reciverUserName      VARCHAR(30),
 	PRIMARY KEY (shipmentID),
-	CONSTRAINT FK_Shipment_Auction FOREIGN KEY (auctionID,recipientUserName,senderUserName)  REFERENCES  Auction(auctionID),
-	CONSTRAINT FK_Shipment_ShippingAddress FOREIGN KEY (senderUserName)  REFERENCES  ShippingAddress(userName)
+	CONSTRAINT FK_Shipment_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
 ) ;
 
 CREATE TABLE Paypal(
@@ -146,5 +145,3 @@ INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phon
 INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
 INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
 INSERT INTO webUser (userName, password) VALUES ('admin','admin');
-
-
