@@ -1,4 +1,8 @@
-<%@ page import="java.sql.*"%>
+<!-- An example of a working Query -->
+<!-- An example of a working Query -->
+<!-- An example of a working Query -->
+<!-- An example of a working Query -->
+<%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -27,7 +31,7 @@ try {
 
 Connection con = DriverManager.getConnection(url, uid, pw);
 
-String SQL = "select userName from User";
+String SQL = "select userName from webUser";
 PreparedStatement pstmt = con.prepareStatement(SQL);
 ResultSet rst = pstmt.executeQuery();
 while(rst.next()){
