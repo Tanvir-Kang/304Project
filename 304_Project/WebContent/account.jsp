@@ -1,3 +1,10 @@
+<%@ page import="java.sql.*"%>
+<%@ page import="java.text.NumberFormat"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Map"%>
+
 <!--Sam
 
 
@@ -98,6 +105,59 @@ background-color: #66b9e5;
 
 </style>
 <body>
+
+<%
+
+String custId = request.getParameter("customerId");
+//Getting customer's password 
+String custPass = request.getParameter("customerPassword");
+
+try { 
+	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+} catch (java.lang.ClassNotFoundException e) {
+	out.println("ClassNotFoundException: " + e);
+}
+{
+	// Making connection
+	
+	
+			String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_speters;";
+			String uid = "speters";
+			String pw = "63685507";
+
+	System.out.println("Connecting to database.");
+
+	Connection con = DriverManager.getConnection(url, uid, pw);
+	
+	
+	// confirming username and password
+PreparedStatement checkUser = con.prepareStatement("SELECT userName, password FROM webUser WHERE userName = ? AND password = ?");
+checkUser.setString(1, custId );
+checkUser.setString(2, custPass );
+
+ResultSet checkNameAndPassword = checkUser.executeQuery();
+
+boolean correctUserAndPassword = true;
+while( checkNameAndPassword.next() ) {
+	correctUserAndPassword = false;
+}
+
+
+if( correctUserAndPassword ) {
+	String chombo = "Invalid username or password";
+%>	
+	
+	<jsp:forward page="checkout.jsp">
+	<jsp:param name="error" value="Invalid username or password" /> </jsp:forward>
+<% 
+}
+}
+	
+	%>	
+		
+	
+
+
 <div class="topBar">
 
 <center><b>BookBids</b></center>
@@ -108,18 +168,17 @@ background-color: #66b9e5;
 		<!-- The tiny login and register links -->
 		<div class ="sideList">
 		<ul > 
-				<li ><a href ="login.jsp"> Login </a></li></li>
+				<li ><a href ="login.jsp"> Login </a></li>
 				<li ><a href ="register.jsp"> Register </a></li>
 				<!-- the links to home, bids, account--> 
 				<li><a href ="account.jsp">Account</a></li>
 				<li ><a href ="homepage.html#home">Home</a></li>
 				<li ><a href ="bids.jsp">Bids</a></li>
+				
 		</ul>
 	</div>
 </div>
 	
-	
-
 <div class="pmain">
 		<h1>
 			<b>BookBids</b>
