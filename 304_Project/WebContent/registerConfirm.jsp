@@ -45,8 +45,6 @@ ZACH -->
 		boolean checkemail = true;
 		boolean checkphonenum = true;
 		while (rst.next()) {
-			out.print(rst.getString("email"));
-			out.print(email);
 			if (rst.getString("userName").equals(userN) || userN.isEmpty())
 				checkuser = false;
 			if (rst.getString("email").equals(email))
@@ -90,6 +88,7 @@ ZACH -->
 			pstmt.setString(6, pNum);
 			pstmt.setString(7, bDate);
 			pstmt.executeUpdate();
+			session.removeAttribute("loginMessage");
 
 			con.close();
 	%>
