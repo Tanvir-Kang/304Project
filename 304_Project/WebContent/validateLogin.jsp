@@ -61,6 +61,10 @@
 			retStr = username;
 		if (retStr != null) {
 			session.removeAttribute("loginMessage");
+			session.removeAttribute("loginMessage");
+			session.removeAttribute("phoneTaken");
+			session.removeAttribute("emailTaken");
+			session.removeAttribute("usernameTaken");
 			session.setAttribute("authenticatedUser", username);
 		} else if(retStr == null)
 			session.setAttribute("loginMessage", "Incorrect username or password.");

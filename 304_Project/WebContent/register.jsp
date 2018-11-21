@@ -67,11 +67,17 @@ label {
 	</div>
 
 
-	<form method="get" action="registerConfirm.jsp">
+	<form method="post" action="registerConfirm.jsp">
 		<p>
 			<label for="userName">
 				<div class="entry">
-					Username:<span style="color: red">*</span>
+					<%
+						// Print prior error register message if present
+						if (session.getAttribute("usernameTaken") != null)
+							out.println("<p align='center' style='color:red;'>" + session.getAttribute("usernameTaken").toString()
+									+ "</p>");
+					%>
+					Username:<span style="color: red">* </span>
 				</div> <input type="text" id="usern" name="userName" size="50" required>
 			</label>
 		</p>
@@ -79,13 +85,20 @@ label {
 			<label for="pw">
 				<div class="entry">
 					Password (at least 6 characters):<span style="color: red">*</span>
-				</div> <input type="password" id="pw" name="password" size="50" required>
+				</div> <input type="password" id="pw" name="password" size="50" required
+				title="Password must be 6 characters" pattern=".{6,}">
 			</label>
 		</p>
 
 		<p>
 			<label for="email">
 				<div class="entry">
+					<%
+						// Print prior error register message if present
+						if (session.getAttribute("emailTaken") != null)
+							out.println("<p align='center' style='color:red;'>" + session.getAttribute("emailTaken").toString()
+									+ "</p>");
+					%>
 					Email Address:<span style="color: red">*</span>
 				</div> <input type="email" id="eml" name="email"
 				pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" size="50" required>
@@ -106,7 +119,12 @@ label {
 			</label>
 		</p>
 		<p>
-			<label for="phoneNum">
+			<label for="phoneNum"> <%
+ 	// Print prior error register message if present
+ 	if (session.getAttribute("phoneTaken") != null)
+ 		out.println("<p align='center' style='color:red;'>" + session.getAttribute("phoneTaken").toString()
+ 				+ "</p>");
+ %>
 				<div class="entry">Phone Number:</div> <input type="tel" id="pnum"
 				name="phoneNum" size="50">
 			</label>

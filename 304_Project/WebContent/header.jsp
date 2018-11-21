@@ -41,8 +41,16 @@ nav {
 	overflow: hidden;
 }
 
+.nohover {
+	
+}
+
+.nohover:hover {
+	background-color: #0D2038;
+}
+
 nav a {
-	display: block;
+	display: flex;
 	float: left;
 	font-family: sans-serif;
 	font-size: 17px;
@@ -58,7 +66,7 @@ nav a:hover {
 	background-color: gray;
 }
 
-nav a:active {
+nav a.active {
 	background-color: #133054;
 }
 
@@ -89,6 +97,10 @@ nav .search-container button:hover {
 	background: #ccc;
 }
 
+.nav-right {
+	float: right;
+}
+
 #outer {
 	width: 600px;
 }
@@ -107,17 +119,43 @@ nav .search-container button:hover {
 	</div>
 
 	<nav>
-		<a class="active" href="homepage.jsp">Home</a> <a
-			href="listAuctions.jsp">Auctions</a> <a href="login.jsp">Login</a> <a
-			href="register.jsp">Register</a>
-
+		<%
+			String uri = request.getRequestURI();
+			String username = (String) session.getAttribute("authenticatedUser");
+			if (username != null) {
+		%>
+		<a class="nohover">Hi, <%=username%>!</a>
+		<%
+			}
+		%>
+		<a href="homepage.jsp"
+			<%if (uri.equals("/304_Project/homepage.jsp")) {%> class="active"
+			<%}%>>Home</a> <a href="listAuctions.jsp"
+			<%if (uri.equals("/304_Project/listAuctions.jsp")) {%> class="active"
+			<%}%>>Auctions</a>
+		<%
+			if (username == null) {
+		%>
+		<a href="login.jsp" <%if (uri.equals("/304_Project/login.jsp")) {%>
+			class="active" <%}%>>Login</a> <a href="register.jsp"
+			<%if (uri.equals("/304_Project/register.jsp")) {%> class="active"
+			<%}%>>Register</a>
+		<%
+			} else {
+		%>
+		<a href="logout.jsp">Logout</a>
+		<%
+			}
+		%>
 		<div id="inner" class="search-container">
-			<form action="/action_page.php">
+			<form action="/304_Project/listAuctions.jsp">
 				<input type="text" placeholder="Author, Title, ISBN..."
 					name="search">
 				<button type="submit">Submit</button>
 			</form>
-
+		</div>
+		<div class="topnav-right">
+			<a href="#search">Search</a> <a href="#about">About</a>
 		</div>
 	</nav>
 	<!-- /HEADER -->

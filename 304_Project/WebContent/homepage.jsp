@@ -18,5 +18,6 @@ ZACH -->
 		<jsp:include page="header.jsp" />
 	</div>
 	<!-- ^^Copy and paste into your body to use consistent header^^ with navbar  -->
+	
 </body>
 </html>

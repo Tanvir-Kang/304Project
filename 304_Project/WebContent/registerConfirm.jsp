@@ -18,6 +18,7 @@ ZACH -->
 </head>
 <body>
 	<%
+		session = request.getSession(true);// May create new session
 		// Get registration details
 		String userN = request.getParameter("userName");
 		String userPw = request.getParameter("password");
@@ -52,32 +53,18 @@ ZACH -->
 			if (rst.getString("phonenum").equals(pNum))
 				checkphonenum = false;
 		}
-		if (checkuser == false) {
-			out.println("<H1>Sorry! That username is already taken. Redirecting back to registration...</H1>");
-	%>
-	<script>
-		setTimeout("document.location.href='register.jsp'", 4000);
-	</script>
-	<%
-		}
-		if (checkemail == false) {
-			out.println("<H1>Sorry! That email is already in use. Redirecting back to registration...</H1>");
-	%>
-	<script>
-		setTimeout("document.location.href='register.jsp'", 4000);
-	</script>
-	<%
-		}
-		if (checkphonenum == false) {
-			out.println("<H1>Sorry! That phone number is already in use. Redirecting back to registration...</H1>");
-	%>
-	<script>
-		setTimeout("document.location.href='register.jsp'", 4000);
-	</script>
-	<%
-		}
+		con.close();
+		if (checkuser == false)
+			session.setAttribute("usernameTaken", "Sorry! That username is already in use.");
+
+		if (checkemail == false)
+			session.setAttribute("emailTaken", "Sorry! That username is already in use.");
+
+		if (checkphonenum == false)
+			session.setAttribute("phoneTaken", "Sorry! That phone number is already in use.");
+
 		if (checkuser == true && checkemail == true && checkphonenum == true) {
-			out.println("Registration Completed! You will be redirected to the login page shortly...");
+			out.println("<h1>Registration Completed! You will be redirected to the login page shortly...</h1>");
 			SQL = "insert into webUser values (?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, userN);
@@ -89,13 +76,18 @@ ZACH -->
 			pstmt.setString(7, bDate);
 			pstmt.executeUpdate();
 			session.removeAttribute("loginMessage");
-
-			con.close();
+			session.removeAttribute("phoneTaken");
+			session.removeAttribute("emailTaken");
+			session.removeAttribute("usernameTaken");
+			
 	%>
 	<script>
 		setTimeout("document.location.href='login.jsp'", 5000);
 	</script>
 	<%
+		}
+		else {
+			response.sendRedirect("register.jsp");
 		}
 	%>
 </body>

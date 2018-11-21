@@ -63,9 +63,19 @@ label {
 	<h2 align="center" style="font-family: Arial;">Sign In</h2>
 	<%
 		// Print prior error login message if present
-		if (session.getAttribute("loginMessage") != null)
+		if (session.getAttribute("loginMessage") != null){
 			out.println("<p align='center' style='color:red;'>" + session.getAttribute("loginMessage").toString()
 					+ "</p>");
+			session.removeAttribute("loginMessage");
+		}
+	%>
+	<%
+		// Print logout message if logged out
+		if (session.getAttribute("logoutMessage") != null){
+			out.println("<p align='center' style='color:red;'>" + session.getAttribute("logoutMessage").toString()
+					+ "</p>");
+			session.removeAttribute("logoutMessage");
+		}
 	%>
 	<form method="post" action="validateLogin.jsp">
 		<p>
