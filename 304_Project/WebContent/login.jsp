@@ -12,12 +12,18 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login</title>
+<title>Sign In</title>
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	margin: 0;
-	S
+}
+
+.entry {
+	font-family: Arial;
+	font-size: 20px;
+	font-weight: normal;
+	color: #707070;
 }
 
 /* Style the header */
@@ -30,15 +36,16 @@ body {
 
 .header h1 {
 	font-size: 40px;
+	font-weight: bolder;
 }
 
 .header h2 {
 	font-size: 30px;
+	color: #0D2038;
 }
 
 form {
-	margin: 0 auto;
-	width: 350px;
+	text-align: center;
 }
 
 label {
@@ -49,24 +56,42 @@ label {
 </style>
 </head>
 <body>
-	<div class="header">
-		<h1>
-			<b>BookBids</b>
-		</h1>
-		<p>Watch the bids start rolling in.</p>
+	<div id="header">
+		<jsp:include page="header.jsp" />
 	</div>
-	<h2 align="center" style="font-family: Arial;">Sign In</h2>
 
-	<form method="get" action="auction.jsp">
+	<h2 align="center" style="font-family: Arial;">Sign In</h2>
+	<%
+		// Print prior error login message if present
+		if (session.getAttribute("loginMessage") != null){
+			out.println("<p align='center' style='color:red;'>" + session.getAttribute("loginMessage").toString()
+					+ "</p>");
+			session.removeAttribute("loginMessage");
+		}
+	%>
+	<%
+		// Print logout message if logged out
+		if (session.getAttribute("logoutMessage") != null){
+			out.println("<p align='center' style='color:red;'>" + session.getAttribute("logoutMessage").toString()
+					+ "</p>");
+			session.removeAttribute("logoutMessage");
+		}
+	%>
+	<form method="post" action="validateLogin.jsp">
 		<p>
-			<label for="userName"> <span>Username:</span> <input
-				type="text" id="usern" name="userName" size="50">
+			<label for="userName">
+				<div class="entry">Username</div> <input type="text" id="usern"
+				name="userName" size="50">
 			</label>
 		</p>
 		<p>
-			<label for="pw"> <span>Password:</span> <input
-				type="password" id="pw" name="password" size="50">
-			</label> <label><input type="submit" value="Submit"></label> <label><input
+			<label for="pw">
+				<div class="entry">Password</div> <input type="password" id="pw"
+				name="password" size="50">
+			</label>
+		</p>
+		<p align="center">
+			<label><input type="submit" value="Login"></label> <label><input
 				type="reset" value="Reset"></label>
 		</p>
 	</form>

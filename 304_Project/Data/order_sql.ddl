@@ -13,11 +13,11 @@ DROP TABLE webUser;
 
 
 CREATE TABLE webUser(
-	userName  VARCHAR(30)    NOT  NULL,
-	password     VARCHAR(20),
-	firstName   VARCHAR(30),
-	lastName    VARCHAR(30),
-	email      VARCHAR(50),
+	userName  VARCHAR(30)   NOT  NULL,
+	password     VARCHAR(20)   NOT NULL,
+	firstName   VARCHAR(30)   NOT NULL,
+	lastName    VARCHAR(30)   NOT NULL,
+	email      VARCHAR(50)   NOT NULL,
 	phonenum  VARCHAR(12),
 	birthdate  DATE,
 	PRIMARY KEY (userName)
@@ -144,4 +144,3 @@ INSERT INTO webUser VALUES ('user2','password2','fname2','lname2','email1','phon
 INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01');
 INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
 INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
-INSERT INTO webUser (userName, password) VALUES ('admin','admin');
