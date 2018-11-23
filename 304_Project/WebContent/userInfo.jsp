@@ -86,10 +86,19 @@ td {padding-right: 30px}
 		<nav>
 		<a class="active" href="homepage.jsp">Home</a> 
 		<a class="active" href="userOperations.jsp">Back</a> 
+	
+		
 	</nav>
 <%
 String input = request.getParameter("userName");
+
+String uName = "%" + input + "%" ;
 out.println("<p>Infomation about: " + input + "</p>");
+out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUser.jsp?userName=" + input +">"+ input + "</a></p>");
+
+//userDisplay.append("<tr><td>"+"<a href=userInfo.jsp?userName=" + userName + ">"+userName+"</td>" );
+
+
 //Making connection
 		loginDetails ld = new loginDetails();
 		String url = ld.getUrl();
@@ -101,24 +110,24 @@ out.println("<p>Infomation about: " + input + "</p>");
 	catch (java.lang.ClassNotFoundException e) {
 		out.println("ClassNotFoundException: " + e);
 		}
+	
+
 	try(Connection con = DriverManager.getConnection(url, uid, pw);){
 		PreparedStatement userAddress = null;
 		ResultSet resultAddress = null;
-		/*
-		userName  VARCHAR(30),
-	postalZipcode     VARCHAR(10),
-	street    VARCHAR(50),
-	city  VARCHAR(30),
-	provinceState    VARCHAR(50),
-	country   VARCHAR(50),*/
-		String uName = "%" + input + "%";
-		userAddress = con.prepareStatement("SELECT postalZipcode, street, city, provinceState, country FROM ShippingAddress WHERE userName = ' HelenfromHell'");
-	//	userAddress.setString(1, uName);
+
+//THIS IS FOR ADDRESS INFORMATION!
+	
+		userAddress = con.prepareStatement("SELECT postalZipcode, street, city, provinceState, country FROM ShippingAddress WHERE userName LIKE ?");
+		userAddress.setString(1, uName);
 		resultAddress = userAddress.executeQuery();
 		out.println("<br><center><b>Address Information</b>");
+		if(resultAddress.next()==false){out.println("<p> No user address information</p>");}
+		else{
+		
 		out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Postal Code</th>"  + "<th align='left'>Street</th>" + "<th align='left'>City</th>"+"<th align='left'>Province</th>"+"<th align='left'>County</th></tr>");
 		
-		while(resultAddress.next()){
+		
 			String postal = resultAddress.getString("postalZipcode");
 			String street = resultAddress.getString("street");
 			String city = resultAddress.getString("city");
@@ -129,12 +138,39 @@ out.println("<p>Infomation about: " + input + "</p>");
 				out.println("<td>" + street + "</td>");
 				out.println("<td>" + city + "</td>");
 				out.println("<td>" + province + "</td>");
-				out.println("<td>" + country + "</td>");
+				out.println("<td>" + country + "</td></tr>");
 
-
-			
+		out.println("</table></center>");
 		}
-		out.println("</table>");
+//THIS IS FOR COMPLAINTS AGAINTS USER
+		PreparedStatement userComplaint = null;
+		ResultSet resultComplaint = null;
+			userComplaint = con.prepareStatement("SELECT complaintID , auctionID, buyerUserName, description, dateSubmitted  FROM Complaint WHERE sellerUserName LIKE ?");
+			userComplaint.setString(1, uName);
+			resultComplaint = userComplaint.executeQuery();
+			
+			
+			out.println("<br><center><b>Complaints againts user</b>");
+			if (resultAddress.next() == false) { out.println("<p>No complaints againts: " + input + "</>"); }
+			else{
+				out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>ComplaintID</th>"  + "<th align='left'>Auction ID</th>" + "<th align='left'>Complaint by: </th>"+"<th align='left'>Description</th>"+"<th align='left'>Date</th></tr>");
+
+				while(resultComplaint.next()){
+			int complaintID = resultComplaint.getInt("complaintID");
+			int auctionID = resultComplaint.getInt("auctionID");
+			String buyerUserName = resultComplaint.getString("buyerUserName");
+			String description = resultComplaint.getString("description");
+			Date dateSubmitted = resultComplaint.getDate("dateSubmitted");
+				
+				out.println("<tr><td>" + complaintID + "</td>");
+				out.println("<td>" + auctionID + "</td>");
+				out.println("<td>" + buyerUserName + "</td>");
+				out.println("<td>" + description + "</td>");
+				out.println("<td>" + dateSubmitted + "</td></tr>");
+			}}
+		out.println("</table></center>");
+		
+
 	}
 	catch(SQLException ex){
 		out.println(ex);
@@ -142,27 +178,6 @@ out.println("<p>Infomation about: " + input + "</p>");
 
 %>	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	</body>
 </html>
+

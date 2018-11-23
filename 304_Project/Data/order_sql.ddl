@@ -145,3 +145,8 @@ INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phon
 INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
 INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
 INSERT INTO ShippingAddress VALUES ('HelenfromHell', 'postal', 'street', 'city', 'bc', 'canada');
+
+
+
+
+

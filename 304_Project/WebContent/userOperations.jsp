@@ -107,6 +107,7 @@ td {padding-right: 30px}
 	
 		<nav>
 		<a class="active" href="homepage.jsp">Home</a> 
+		<a class="active" href="adminOperations.jsp">Back</a> 
 
 	<div id="inner" class="search-container">
 			<form action="/304_Project/userOperations.jsp">
@@ -159,7 +160,8 @@ td {padding-right: 30px}
 		}
 	
 		userDisplay.append("<br><center><b>All User Information</b>");
-		userDisplay.append("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>User Name</th>"  + "<th align='left'>First Name</th>" + "<th align='left'>Last Name</th>"+"<th align='left'>Email</th>"+"<th align='left'>Phone Number</th>"+"<th align='left'>Birthdate</th></tr>");
+	
+		userDisplay.append("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>User Name</th>"  + "<th align='left'>First Name</th>" + "<th align='left'>Last Name</th>"+"<th align='left'>Email</th>"+"<th align='left'>Phone Number</th>"+"<th align='left'>Birthdate</th>"+"</tr>");
 
 		
 		while(userResult.next()){
@@ -170,18 +172,18 @@ td {padding-right: 30px}
 			String phonenum = userResult.getString("phonenum");
 			java.sql.Date BDate = userResult.getDate("birthdate");
 				
-				userDisplay.append("<tr><td>"+"<a href='userInfo.jsp?userName=" + userName + "'>"+userName+"</td>" );
+				userDisplay.append("<tr><td>"+"<a href=userInfo.jsp?userName=" + userName + ">"+userName+"</td>" );
 				userDisplay.append("<td>" + firstName + "</td>" );
 				userDisplay.append("<td>" + lastName + "</td>" );
 				userDisplay.append("<td>" + email + "</td>" );
 				userDisplay.append("<td>" + phonenum + "</td>" );
-				userDisplay.append("<td>" + BDate + "</td>" );
-				userDisplay.append("<td>" + phonenum + "</td></tr>");
+				userDisplay.append("<td>" + BDate + "</td></tr>" );
+			
 			
 		}
 		userDisplay.append("</table></center>");
 		out.println(userDisplay);
-	
+		
 	}
 	catch(SQLException ex){
 		out.println(ex);
