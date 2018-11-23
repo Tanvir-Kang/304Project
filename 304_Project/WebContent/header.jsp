@@ -112,12 +112,12 @@ nav .search-container button:hover {
 </style>
 </head>
 <body>
-	<!-- HEADER -->
+	<!-- HEADER  -->
 	<div class="header">
 		<h1>BookBids</h1>
 		<p>Watch the bids start rolling in.</p>
 	</div>
-
+<!-- /HEADER -->
 	<nav>
 		<%
 			String uri = request.getRequestURI();
@@ -158,6 +158,6 @@ nav .search-container button:hover {
 			<a href="#search">Search</a> <a href="#about">About</a>
 		</div>
 	</nav>
-	<!-- /HEADER -->
+	
 </body>
 </html>

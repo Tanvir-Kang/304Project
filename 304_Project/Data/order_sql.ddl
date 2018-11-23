@@ -20,6 +20,7 @@ CREATE TABLE webUser(
 	email      VARCHAR(50)   NOT NULL,
 	phonenum  VARCHAR(12),
 	birthdate  DATE,
+	admin	BIT NOT NULL,
 	PRIMARY KEY (userName)
 );
 
@@ -137,13 +138,13 @@ CREATE TABLE Bitcoin(
 	CONSTRAINT FK_Auction1_PaymentInfo1 FOREIGN KEY (billingAddress,buyerUserName)  REFERENCES  PaymentInfo(billingAddress,buyerUserName)
 ); 
 
-INSERT INTO webUser VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05');
-INSERT INTO webUser VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04');
-INSERT INTO webUser VALUES ('user1','password1','fname1','lname1','email1', 'phone1','1990-01-01');
-INSERT INTO webUser VALUES ('user2','password2','fname2','lname2','email1','phone2','1990-01-01');
-INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01');
-INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
-INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
+INSERT INTO webUser VALUES ('JeffDaniels12', 'badpass','Jeff', 'Daniels', 'jeffyD@hotmail.com', '5556669201', '1972-02-05', '0');
+INSERT INTO webUser VALUES ('HelenfromHell', 'bp2212','Helen', 'Gregory', 'helenG@hotmail.com', '5546669301', '1992-01-04', '0');
+INSERT INTO webUser VALUES ('user1','password1','fname1','lname1','email1', 'phone1','1990-01-01', '0');
+INSERT INTO webUser VALUES ('user2','password2','fname2','lname2','email1','phone2','1990-01-01', '0');
+INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phone3','1990-01-01', '0');
+INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01', '0');
+INSERT INTO webUser VALUES ('admin','adminpass','fname5','lname5','email1','phone5','1990-01-01', '1');
 
 INSERT INTO ShippingAddress VALUES ('HelenfromHell', 'postal', 'street', 'city', 'bc', 'canada');
 INSERT INTO ShippingAddress VALUES ('JeffDaniels12', 'postal', 'street', 'city', 'bc', 'canada');

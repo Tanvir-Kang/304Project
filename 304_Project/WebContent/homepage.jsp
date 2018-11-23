@@ -13,7 +13,8 @@ ZACH -->
 <title>Welcome to BookBids!</title>
 </head>
 <body>
-<!-- Copy and paste into your body to use consistent header with navbar  -->
+<!-- Copy and paste the code between these comments
+ into your body to use consistent header with navbar  -->
 	<div id="header">
 		<jsp:include page="header.jsp" />
 	</div>

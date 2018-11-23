@@ -65,7 +65,7 @@ ZACH -->
 
 		if (checkuser == true && checkemail == true && checkphonenum == true) {
 			out.println("<h1>Registration Completed! You will be redirected to the login page shortly...</h1>");
-			SQL = "insert into webUser values (?, ?, ?, ?, ?, ?, ?)";
+			SQL = "insert into webUser values (?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, userN);
 			pstmt.setString(2, userPw);
@@ -74,6 +74,7 @@ ZACH -->
 			pstmt.setString(5, lName);
 			pstmt.setString(6, pNum);
 			pstmt.setString(7, bDate);
+			pstmt.setString(8, "false");
 			pstmt.executeUpdate();
 			session.removeAttribute("loginMessage");
 			session.removeAttribute("phoneTaken");

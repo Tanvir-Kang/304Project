@@ -1,3 +1,13 @@
+<!-- ZACH
+
+
+
+
+
+
+
+
+ZACH -->
 <%@ page language="java"
 	import="java.io.*, data.loginDetails, java.sql.*"
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -5,7 +15,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Logging in...</title>
 </head>
 <body>
 	<%
@@ -27,11 +37,11 @@
 		String username = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String retStr = null;
-		if (username == null || password == null){
+		if (username == null || password == null) {
 			session.setAttribute("loginMessage", "Username and password must not be empty.");
 			return null;
 		}
-		if ((username.length() == 0) || (password.length() == 0)){
+		if ((username.length() == 0) || (password.length() == 0)) {
 			session.setAttribute("loginMessage", "Username and password must not be empty.");
 			return null;
 		}
@@ -66,7 +76,16 @@
 			session.removeAttribute("emailTaken");
 			session.removeAttribute("usernameTaken");
 			session.setAttribute("authenticatedUser", username);
-		} else if(retStr == null)
+			//Query whether use is admin
+			SQL = "select admin from webUser where username = ?";
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, username);
+			rst = pstmt.executeQuery();
+			// Check if user is admin
+			rst.next();
+			if (rst.getInt("admin") == 1)
+				session.setAttribute("admin", true);
+		} else if (retStr == null)
 			session.setAttribute("loginMessage", "Incorrect username or password.");
 		con.close();
 		return retStr;
