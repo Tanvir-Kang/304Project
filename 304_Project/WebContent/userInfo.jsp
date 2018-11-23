@@ -1,6 +1,7 @@
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,7 +130,7 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 //THIS IS FOR COMPLAINTS AGAINTS USER
 		PreparedStatement userComplaint = null;
 		ResultSet resultComplaint = null;
-			userComplaint = con.prepareStatement("SELECT complaintID , auctionID, buyerUserName, description, dateSubmitted  FROM Complaint WHERE sellerUserName LIKE ?");
+			userComplaint = con.prepareStatement("SELECT complaintID , auctionID, buyerUserName, description, dateSubmitted  FROM Complaint WHERE sellerUserName LIKE ?", resultComplaint.TYPE_SCROLL_SENSITIVE,resultComplaint.CONCUR_READ_ONLY);
 			userComplaint.setString(1, uName);
 			resultComplaint = userComplaint.executeQuery();
 			
@@ -138,7 +139,7 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 			if (resultAddress.next() == false) { out.println("<p>No complaints againts: " + input + "</>"); }
 			else{
 				out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>ComplaintID</th>"  + "<th align='left'>Auction ID</th>" + "<th align='left'>Complaint by: </th>"+"<th align='left'>Description</th>"+"<th align='left'>Date</th></tr>");
-
+				resultComplaint.beforeFirst();
 				while(resultComplaint.next()){
 			int complaintID = resultComplaint.getInt("complaintID");
 			int auctionID = resultComplaint.getInt("auctionID");
@@ -153,8 +154,29 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 				out.println("<td>" + dateSubmitted + "</td></tr>");
 			}}
 		out.println("</table></center>");
-//All user orders		
+//All user orders
+		PreparedStatement userOrders = null;
+		ResultSet resultOrders = null;
+		 userOrders = con.prepareStatement("SELECT Company.invioceID, Company.auctionFee, Auction.highestBid FROM Auction JOIN Company ON Auction.invioceID=Company.invioceID WHERE buyerUserName LIKE ?",resultOrders.TYPE_SCROLL_INSENSITIVE,resultOrders.CONCUR_READ_ONLY);
+		userOrders.setString(1,uName);
 
+		 resultOrders= userOrders.executeQuery();
+			out.println("<br><center><b>Order Information</b>");
+			if(resultOrders.next()==false){out.println("<p> No user order information</p>");}
+			else{
+				resultOrders.beforeFirst();
+			while(resultOrders.next()){
+			int invioceID = resultOrders.getInt("invioceID");
+			double auctionFee = resultOrders.getDouble("auctionFee");
+			double highestBid = resultOrders.getDouble("highestBid");
+			out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Invioce ID</th>"  + "<th align='left'>Comapny Fee</th>" + "<th align='left'>Winning Bid </th></tr>");
+			out.println("<tr><td>" + invioceID + "</td>");
+			out.println("<td>" + auctionFee + "</td>");
+			out.println("<td>" + highestBid + "</td></tr>");
+			}
+			out.println("</table></center>");
+			}
+			
 	}
 	catch(SQLException ex){
 		out.println(ex);

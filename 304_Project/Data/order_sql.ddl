@@ -145,10 +145,17 @@ INSERT INTO webUser VALUES ('user3','password3','fname3','lname3','email1','phon
 INSERT INTO webUser VALUES ('user4','password4','fname4','lname4','email1','phone4','1990-01-01');
 INSERT INTO webUser VALUES ('user55','password5','fname5','lname5','email1','phone5','1990-01-01');
 INSERT INTO ShippingAddress VALUES ('HelenfromHell', 'postal', 'street', 'city', 'bc', 'canada');
-INSERT INTO Company VALUES ('1','10.05');
+INSERT INTO ShippingAddress VALUES ('JeffDaniels12', 'postal', 'street', 'city', 'bc', 'canada');
+INSERT INTO Company VALUES ('1','70.05');
+INSERT INTO Company VALUES ('2','10.05');
+INSERT INTO Company VALUES ('3','90.05');
 INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
-INSERT INTO Auction VALUES ('1','billingaddress',NULL,NULL,'100.50','JeffDaniels12','HelenfromHell','1');
+INSERT INTO PaymentInfo VALUES ('JeffDaniels12','billingaddress2');
+INSERT INTO Auction VALUES ('1','billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell','1');
+INSERT INTO Auction VALUES ('2','billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12','2');
+INSERT INTO Auction VALUES ('3','billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12','3');
 INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
+INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
 
 
