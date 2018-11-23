@@ -9,8 +9,7 @@
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	margin: 0;
-}
+	margin: 0; }
 
 /* Style the header */
 .header {
@@ -29,16 +28,11 @@ nav {
 	width: 100%;
 	height: 40px;
 	background-color: #000000;
-	overflow: hidden;
-}
+	overflow: hidden; }
 
-.nohover {
-	
-}
+.nohover { }
 
-.nohover:hover {
-	background-color: #0D2038;
-}
+.nohover:hover { background-color: #0D2038; }
 
 nav a {
 	display: flex;
@@ -53,24 +47,14 @@ nav a {
 	text-decoration: none;
 }
 
-nav a:hover {
-	background-color: gray;
-}
+nav a:hover { background-color: gray;}
 
-nav a.active {
-	background-color: #000000;
-}
-.nav-right {
-	float: right;
-}
+nav a.active { background-color: #000000; }
+.nav-right { float: right; }
 
-#outer {
-	width: 600px;
-}
+#outer { width: 600px; }
 
-#inner {
-	width: 450px;
-	margin: 0 auto;
+#inner {width: 450px; margin: 0 auto;
 }
 td {padding-right: 30px}
 </style>
@@ -169,7 +153,7 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 				out.println("<td>" + dateSubmitted + "</td></tr>");
 			}}
 		out.println("</table></center>");
-		
+//All user orders		
 
 	}
 	catch(SQLException ex){
