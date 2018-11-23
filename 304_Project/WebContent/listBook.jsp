@@ -202,7 +202,7 @@ try
 } catch (SQLException ex) {
 	out.println(ex);
 }
-//need addCart.jsp from Zach for testing.
+
 %>
 </body>
 </html>
