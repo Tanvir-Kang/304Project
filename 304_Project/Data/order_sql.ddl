@@ -157,12 +157,12 @@ INSERT INTO Auction VALUES (1,'billingaddress',NULL,NULL,'700.50','JeffDaniels12
 INSERT INTO Auction VALUES (2,'billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2);
 INSERT INTO Auction VALUES (3,'billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3);
 
-
 INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
 INSERT INTO PaymentInfo VALUES ('JeffDaniels12','billingaddress2');
 
 INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
-INSERT INTO Book VALUES ('145678578543456',1,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
-
+INSERT INTO Book VALUES ('145678578543456',1,'Computer Science','JeffDaniels12','Computer Science','J.John',8,4,110.99,NULL);
+INSERT INTO Book VALUES ('987345984780100',2,'The Secrets of Human body','HelenfromHell','Biology','P.Pency',8,3,130.99,NULL);
+INSERT INTO Book VALUES ('003481367209876',3,'English Grammar','HelenfromHell','English','A.Alen',8,4,123.97,NULL);
