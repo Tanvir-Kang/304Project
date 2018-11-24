@@ -153,16 +153,23 @@ INSERT INTO Company VALUES (1,'70.05');
 INSERT INTO Company VALUES (2,'10.05');
 INSERT INTO Company VALUES (3,'90.05');
 
-INSERT INTO Auction VALUES (1,'billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell',1);
-INSERT INTO Auction VALUES (2,'billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2);
-INSERT INTO Auction VALUES (3,'billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3);
-
 INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
 INSERT INTO PaymentInfo VALUES ('JeffDaniels12','billingaddress2');
 
 INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
-INSERT INTO Book VALUES ('145678578543456',1,'Computer Science','JeffDaniels12','Computer Science','J.John',8,4,110.99,NULL);
-INSERT INTO Book VALUES ('987345984780100',2,'The Secrets of Human body','HelenfromHell','Biology','P.Pency',8,3,130.99,NULL);
-INSERT INTO Book VALUES ('003481367209876',3,'English Grammar','HelenfromHell','English','A.Alen',8,4,123.97,NULL);
+DECLARE @auctionID int
+INSERT INTO Auction (auctionID,billingAddress,highestBid,sellerUserName,buyerUserName,invioceID) VALUES (1,'billingaddress','700.50','JeffDaniels12','HelenfromHell','1')
+SELECT @auctionID = @@IDENTITY
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
+
+DECLARE @auctionID int
+INSERT INTO Auction VALUES (2,'billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2)
+SELECT @auctionID = @@IDENTITY
+INSERT INTO Book VALUES ('987345984780100',@auctionID,'Biology','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
+
+DECLARE @auctionID int
+INSERT INTO Auction VALUES (3,'billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3)
+SELECT @auctionID = @@IDENTITY
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
