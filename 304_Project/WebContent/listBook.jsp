@@ -1,10 +1,15 @@
+<%@ page import="java.sql.*,java.net.URLEncoder" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ include file="jdbc.jsp" %>   
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Search for Books</title>
 </head>
 <body>
 	<div id="header">
@@ -12,7 +17,7 @@
 	</div>
 
 </form>
-<h2>Search for the books you want to buy:</h2>
+<h2>Search for the books you want to bit:</h2>
 
 <form method="get" action="listBook.jsp">
   <p align="left">
@@ -136,19 +141,20 @@ String filter = "", sql = "";
 
 if (hasNameParam && hasCategoryParam)
 {
-	filter = "<h3>Products containing '"+title+"' in category: '"+category+"'</h3>";
+	filter = "<h3>Books containing '"+title+"' in subject: '"+category+"'</h3>";
 	title = '%'+title+'%';
 	sql = "SELECT title,author,startPrice, subject FROM Book WHERE title LIKE ? AND subject = ?";
+	
 }
 else if (hasNameParam)
 {
-	filter = "<h3>Products containing '"+title+"'</h3>";
+	filter = "<h3>Books containing '"+title+"'</h3>";
 	title = '%'+title+'%';
 	sql = "SELECT title,author,startPrice, subject FROM Book WHERE title LIKE ?";
 }
 else if (hasCategoryParam)
 {
-	filter = "<h3>Products in category: '"+category+"'</h3>";
+	filter = "<h3>Books in subject: '"+category+"'</h3>";
 	sql = "SELECT title,author,startPrice, subject FROM Book WHERE subject = ?";
 }
 else
@@ -177,14 +183,17 @@ try
 	{
 		pstmt.setString(1, category);
 	}
-	
+	else  
+	{
+		
+	}
 	ResultSet rst = pstmt.executeQuery();
 	
 	out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th class=\"col-md-1\"></th><th>Book title</th>");
 	out.println("<th>Subject</th><th>Starting Price</th></tr>");
 	while (rst.next()) 
 	{
-		out.print("<td class=\"col-md-1\"><a href=\"addCart.jsp?userName=" + rst.getInt(1) + "&name=" + URLEncoder.encode(rst.getString(2), "Windows-1252")
+		out.print("<td class=\"col-md-1\"><a href=\"addCart.jsp?userName=" + rst.getInt(1) + "&name=" + URLEncoder.encode(rst.getString(2), "UTF-8")
 				+ "&price=" + rst.getDouble(3) + "\">Add to Cart</a></td>");
 
 		String bookCategory = rst.getString(4);

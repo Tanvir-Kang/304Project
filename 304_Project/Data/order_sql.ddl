@@ -52,7 +52,7 @@ CREATE TABLE Auction(
 	CONSTRAINT FK_Auction_Company FOREIGN KEY (invioceID)  REFERENCES Company(invioceID)
 );
 
-CREATE TABLE Book (
+CREATE TABLE Book(
 	ISBN   VARCHAR(50)       NOT NULL,
 	auctionID   int      NOT NULL,
 	title  VARCHAR(30),
@@ -148,24 +148,21 @@ INSERT INTO webUser VALUES ('admin','adminpass','fname5','lname5','email1','phon
 
 INSERT INTO ShippingAddress VALUES ('HelenfromHell', 'postal', 'street', 'city', 'bc', 'canada');
 INSERT INTO ShippingAddress VALUES ('JeffDaniels12', 'postal', 'street', 'city', 'bc', 'canada');
-INSERT INTO Company VALUES ('1','70.05');
-INSERT INTO Company VALUES ('2','10.05');
-INSERT INTO Company VALUES ('3','90.05');
+
+INSERT INTO Company VALUES (1,'70.05');
+INSERT INTO Company VALUES (2,'10.05');
+INSERT INTO Company VALUES (3,'90.05');
+
+INSERT INTO Auction VALUES (1,'billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell',1);
+INSERT INTO Auction VALUES (2,'billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2);
+INSERT INTO Auction VALUES (3,'billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3);
+
+
 INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
 INSERT INTO PaymentInfo VALUES ('JeffDaniels12','billingaddress2');
-INSERT INTO Auction VALUES ('1','billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell','1');
-INSERT INTO Auction VALUES ('2','billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12','2');
-INSERT INTO Auction VALUES ('3','billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12','3');
+
 INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
-
-
-INSERT INTO ShippingAddress VALUES ('HelenfromHell', 'postal', 'street', 'city', 'bc', 'canada');
-INSERT INTO Company VALUES ('1','10.05');
-INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
-INSERT INTO Auction VALUES ('1','billingaddress',NULL,NULL,'100.50','JeffDaniels12','HelenfromHell','1');
-INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
-
-
+INSERT INTO Book VALUES ('145678578543456',1,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
 
