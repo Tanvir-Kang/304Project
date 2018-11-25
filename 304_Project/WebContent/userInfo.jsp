@@ -103,14 +103,17 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 
 //THIS IS FOR ADDRESS INFORMATION!
 	
-		userAddress = con.prepareStatement("SELECT postalZipcode, street, city, provinceState, country FROM ShippingAddress WHERE userName LIKE ?");
+		userAddress = con.prepareStatement("SELECT postalZipcode, street, city, provinceState, country FROM ShippingAddress WHERE userName LIKE ?",resultAddress.TYPE_SCROLL_SENSITIVE,resultAddress.CONCUR_READ_ONLY);
 		userAddress.setString(1, uName);
 		resultAddress = userAddress.executeQuery();
 		out.println("<br><center><b>Address Information</b>");
 		if(resultAddress.next()==false){out.println("<p> No user address information</p>");}
-		else{
 		
-		out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Postal Code</th>"  + "<th align='left'>Street</th>" + "<th align='left'>City</th>"+"<th align='left'>Province</th>"+"<th align='left'>County</th></tr>");
+		else{
+			resultAddress.beforeFirst();
+			out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Postal Code</th>"  + "<th align='left'>Street</th>" + "<th align='left'>City</th>"+"<th align='left'>Province</th>"+"<th align='left'>County</th></tr>");
+
+			while(resultAddress.next()){
 		
 		
 			String postal = resultAddress.getString("postalZipcode");
@@ -124,7 +127,7 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 				out.println("<td>" + city + "</td>");
 				out.println("<td>" + province + "</td>");
 				out.println("<td>" + country + "</td></tr>");
-
+			}
 		out.println("</table></center>");
 		}
 //THIS IS FOR COMPLAINTS AGAINTS USER
@@ -164,12 +167,13 @@ out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUs
 			out.println("<br><center><b>Order Information</b>");
 			if(resultOrders.next()==false){out.println("<p> No user order information</p>");}
 			else{
+				out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Invioce ID</th>"  + "<th align='left'>Comapny Fee</th>" + "<th align='left'>Winning Bid </th></tr>");
+
 				resultOrders.beforeFirst();
 			while(resultOrders.next()){
 			int invioceID = resultOrders.getInt("invioceID");
 			double auctionFee = resultOrders.getDouble("auctionFee");
 			double highestBid = resultOrders.getDouble("highestBid");
-			out.println("<table cellpadding='10' style='width=100%'>" + "<tr>"+"<th align='left'>Invioce ID</th>"  + "<th align='left'>Comapny Fee</th>" + "<th align='left'>Winning Bid </th></tr>");
 			out.println("<tr><td>" + invioceID + "</td>");
 			out.println("<td>" + auctionFee + "</td>");
 			out.println("<td>" + highestBid + "</td></tr>");

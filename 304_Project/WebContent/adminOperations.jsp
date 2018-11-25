@@ -125,6 +125,9 @@ form{padding: 10px;}
 <form action="auctionOperations.jsp">
     <input type="submit" value="Auction operations" />
 </form>	
+<form action="listAllOrders.jsp">
+    <input type="submit" value="Show all orders" />
+</form>	
 
 
 	
