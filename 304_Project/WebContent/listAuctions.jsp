@@ -3,6 +3,7 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
 <%@ include file="jdbc.jsp" %>   
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,19 +11,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search for Books</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="header">
 		<jsp:include page="header.jsp" />
 	</div>
+	<h2>Search for the books you want to bit:</h2>
 
-</form>
-<h2>Search for the books you want to bit:</h2>
-
-<form method="get" action="listAuctions.jsp">
+<form method="get" action="listAuction.jsp">
   <p align="left">
   <select size="1" name="subject">
   <option>All</option>
+  
+  
   <option>Anthropology</option>
   <option>Applied Science Professional Platform</option>
   <option>Applied Science </option>
@@ -72,7 +74,7 @@
   <option>Theatre</option>
   <option>World Literature</option>
   </select>
-  <input type="text" name="title" size="30">
+  <input type="text" name="title" size="50">
   <input type="submit" value="Submit"><input type="reset" value="Reset"></p>
 </form>
 
@@ -183,17 +185,15 @@ try
 	{
 		pstmt.setString(1, category);
 	}
-	else  
-	{
-		
-	}
+	
 	ResultSet rst = pstmt.executeQuery();
 	
 	out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th class=\"col-md-1\"></th><th>Book title</th>");
-	out.println("<th>Subject</th><th>Starting Price</th></tr>");
+	out.println("<th>Author</th><th>Subject</th><th>Starting Price</th></tr>");
 	while (rst.next()) 
 	{
-		out.print("<td class=\"col-md-1\"><a href=\"addCart.jsp?userName=" + rst.getInt(1) + "&name=" + URLEncoder.encode(rst.getString(2), "UTF-8")
+		out.print("<td class=\"col-md-1\"><a href=\"addCart.jsp?auctionID=" + rst.getInt(1) + "&name=" + URLEncoder.encode(rst.getString(2), "Windows-1252")
+				+"&author=" + URLEncoder.encode(rst.getString(3), "Windows-1252")
 				+ "&price=" + rst.getDouble(3) + "\">Add to Cart</a></td>");
 
 		String bookCategory = rst.getString(4);
@@ -202,6 +202,7 @@ try
 			color = "#FFFFFF";
 
 		out.println("<td><font color=\"" + color + "\">" + rst.getString(2) + "</font></td>"
+				+"<td><font color=\"" + color + "\">" + rst.getString(3) + "</font></td>"
 				+ "<td><font color=\"" + color + "\">" + bookCategory + "</font></td>"
 				+ "<td><font color=\"" + color + "\">" + currFormat.format(rst.getDouble(3))
 				+ "</font></td></tr>");

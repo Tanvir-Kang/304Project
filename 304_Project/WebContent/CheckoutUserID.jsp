@@ -2,65 +2,49 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Check Out</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
 <style>
-body {
-	font-family: Arial, Helvetica, sans-serif;
-	margin: 0;
-}
-
-.entry {
-	font-family: Arial;
-	font-size: 20px;
-	font-weight: normal;
-	color: #707070;
-}
-
-/* Style the header */
-.header {
-	padding: 80px;
-	text-align: center;s
-	background: #6FBEE7;
-	color: white;
-}
-
-.header h1 {
-	font-size: 40px;
-	font-weight: bolder;
-}
-
-.header h2 {
-	font-size: 30px;
-	color: #0D2038;
-}
-
-form {
-	text-align: center;
-}
-
-label {
-	margin-bottom: 20px;
-	padding-right: 20px;
-	padding-bottom: 10px;
+button{
+	float: center;
+	padding: 6px 10px;
+	margin-top: 4px;
+	margin-bottom: 5px;
+	margin-right: 14px;
+	background: #FFFACD;
+	font-size: 17px;
+	border: none;
+	cursor: pointer;
 }
 </style>
-
-</head>
 <body>
 
 	<div id="header">
 		<jsp:include page="header.jsp" />
 	</div>
 
-<h2 align="center" style="font-family: Arial;">Check Out</h2>
+<h2 align="center" style="font-size: 40px;">Check Out</h2>
 
 <form method="get" action="auction.jsp">
-<table>
-<tr><td>Customer ID:</td><td><input type="text" name="UserID" size="20"></td></tr>
-<tr><td>Password:</td><td><input type="password" name="password" size="20"></td></tr>
-<tr><td><input type="submit" value="Submit"></td><td><input type="reset" value="Reset"></td></tr>
+<table align="center" >
+<tr><td align="center" style="font-size: 25px;">  Customer ID:</td><td>
+<tr><td>      </td></tr>
+<tr><td align="center"><input type="text"  size="20"></td></tr>
+<tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr>
+<tr><td align="center" style="font-size: 25px;">  Password:</td><td>
+<tr><td>      </td></tr>
+<tr><td align="center"><input type="password" name="password" size="20"></td></tr>
+<tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr>
+<tr><td align="center" style="font-size: 25px;">  Address:</td><td>
+<tr><td>      </td></tr>
+<tr><td align="center"><input type="text" name="UserID" size="20"></td></tr>
+<tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr><tr><td> </td></tr>
+<tr><td align="center"><button type="submit">Submit</button></td></tr>
 </table>
 </form>
 
