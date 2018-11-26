@@ -27,6 +27,10 @@ ZACH -->
 		String lName = request.getParameter("lastName");
 		String pNum = request.getParameter("phoneNum");
 		String bDate = request.getParameter("birthDate");
+		if (pNum.isEmpty() || pNum.equals(""))
+			pNum = null;
+		if (bDate.isEmpty() || bDate.equals(""))
+			pNum = null;
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (java.lang.ClassNotFoundException e) {
@@ -50,10 +54,11 @@ ZACH -->
 				checkuser = false;
 			if (rst.getString("email").equals(email))
 				checkemail = false;
-			if (rst.getString("phonenum").equals(pNum))
-				checkphonenum = false;
+			if (pNum != null) {
+				if (rst.getString("phonenum").equals(pNum))
+					checkphonenum = false;
+			}
 		}
-		con.close();
 		if (checkuser == false)
 			session.setAttribute("usernameTaken", "Sorry! That username is already in use.");
 
@@ -80,15 +85,15 @@ ZACH -->
 			session.removeAttribute("phoneTaken");
 			session.removeAttribute("emailTaken");
 			session.removeAttribute("usernameTaken");
-			
+			con.close();
 	%>
 	<script>
 		setTimeout("document.location.href='login.jsp'", 5000);
 	</script>
 	<%
-		}
-		else {
+		} else {
 			response.sendRedirect("register.jsp");
+			con.close();
 		}
 	%>
 </body>
