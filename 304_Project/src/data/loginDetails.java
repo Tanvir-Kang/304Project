@@ -1,9 +1,9 @@
 package data;
 
 public class loginDetails {
-	String Uid = "tkang";
-	String Pw = "35470160";
-	String Url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_tkang;";
+	String Uid = "speters";
+	String Pw = "63685507";
+	String Url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_speters;";
 	
 	public String getUid() {
 		return Uid;
