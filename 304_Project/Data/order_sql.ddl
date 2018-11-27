@@ -73,6 +73,7 @@ CREATE TABLE Book(
 	quality     int,
 	startPrice   decimal(15,2),
 	description  VARCHAR(150),
+	image	varbinary(MAX),
 	PRIMARY KEY (auctionID,sellerUserName,ISBN),
 	CONSTRAINT FK_Book_Auction FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID),
 	CONSTRAINT FK_Book_User FOREIGN KEY (sellerUserName)  REFERENCES webUser(userName)
@@ -179,14 +180,14 @@ INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','bill
 DECLARE @auctionID int
 INSERT INTO Auction  VALUES ('billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell',1)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);
 
 DECLARE @auctionID int
 INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('987345984780100',@auctionID,'Biology','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
+INSERT INTO Book VALUES ('987345984780100',@auctionID,'Biology','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);
 
 DECLARE @auctionID int
 INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);

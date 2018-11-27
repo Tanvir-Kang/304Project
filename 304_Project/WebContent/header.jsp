@@ -157,6 +157,7 @@ nav .search-container button:hover {
 			<%
 				}
 			%>
+			<a href="account.jsp">My Account</a>
 			<a href="logout.jsp">Logout</a>
 
 		</div>
