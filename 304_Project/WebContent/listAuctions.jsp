@@ -3,6 +3,8 @@
 <%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page
+	import="java.sql.*, data.loginDetails, java.util.concurrent.TimeUnit"%>
 	
 <%@ include file="jdbc.jsp" %>   
    
@@ -145,24 +147,24 @@ if (hasNameParam && hasCategoryParam)
 {
 	filter = "<h3>Books containing '"+title+"' in subject: '"+category+"'</h3>";
 	title = '%'+title+'%';
-	sql = "SELECT title,author,startPrice, subject FROM Book WHERE title LIKE ? AND subject = ?";
+	sql = "SELECT sellerUserName, auctionId,title,author,startPrice, subject FROM Book WHERE title LIKE ? AND subject = ?";
 	
 }
 else if (hasNameParam)
 {
 	filter = "<h3>Books containing '"+title+"'</h3>";
 	title = '%'+title+'%';
-	sql = "SELECT title,author,startPrice, subject FROM Book WHERE title LIKE ?";
+	sql = "SELECT auctionId, sellerUserName,title,author,subject,startPrice t FROM Book WHERE title LIKE ?";
 }
 else if (hasCategoryParam)
 {
 	filter = "<h3>Books in subject: '"+category+"'</h3>";
-	sql = "SELECT title,author,startPrice, subject FROM Book WHERE subject = ?";
+	sql = "SELECT auctionId, sellerUserName,title,author,subject,startPrice  FROM Book WHERE subject = ?";
 }
 else
 {
 	filter = "<h3>All Products</h3>";
-	sql = "SELECT title,author,startPrice, subject FROM Book";
+	sql = "SELECT auctionId, sellerUserName,title,author,subject,startPrice FROM Book";
 }
 
 out.println(filter);
@@ -171,7 +173,23 @@ NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 try 
 {
-	getConnection();
+	
+	
+	
+	
+	
+	loginDetails ld = new loginDetails();
+	String url = ld.getUrl();
+	String uid = ld.getUid();
+	String pw = ld.getPw();
+	Connection con = DriverManager.getConnection(url, uid, pw);
+	
+	
+	
+	
+	
+	
+	
 	PreparedStatement pstmt = con.prepareStatement(sql);
 	if (hasNameParam)
 	{
@@ -188,24 +206,38 @@ try
 	
 	ResultSet rst = pstmt.executeQuery();
 	
-	out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th class=\"col-md-1\"></th><th>Book title</th>");
+	out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th class=\"col-md-1\"></th><th></th><th>Auction Id</th><th>Seller</th> <th>Book title</th>");
 	out.println("<th>Author</th><th>Subject</th><th>Starting Price</th></tr>");
+
 	while (rst.next()) 
 	{
-		out.print("<td class=\"col-md-1\"><a href=\"addCart.jsp?auctionID=" + rst.getInt(1) + "&name=" + URLEncoder.encode(rst.getString(2), "Windows-1252")
-				+"&author=" + URLEncoder.encode(rst.getString(3), "Windows-1252")
-				+ "&price=" + rst.getDouble(3) + "\">Add to Cart</a></td>");
-
+		out.print("dank");
+		Double minBid = Double.parseDouble(rst.getString(6));
+		minBid += 1.0;
+		
+		out.print("<td class=\"col-md-1\"><a href=\"bid.jsp?auctionId=" + rst.getString(1) 
+				+ "&title=" + URLEncoder.encode(rst.getString(3), "Windows-1252")
+				+ "&startingPrice=" + minBid + "\">Place Bid</a></td>");
+		%><td> <form method="get" action="saveAuction.jsp">
+		<input type="submit" value="Save Auction">
+		<input type="hidden" name="auctionId" value="<%out.print(rst.getString(1));%>">
+		<input type="hidden" name="value" value="-100">
+		<input type ="hidden" name = "startingPrice" value="-100">
+		</form></td><%
 		String bookCategory = rst.getString(4);
 		String color = (String) colors.get(bookCategory);
 		if (color == null)
-			color = "#FFFFFF";
+			color = "red";
 
-		out.println("<td><font color=\"" + color + "\">" + rst.getString(2) + "</font></td>"
+		out.println("<td><font color=\"" + color + "\">" + rst.getString(1) + "</font></td>"
+				+"<td><font color=\"" + color + "\">" + rst.getString(2) + "</font></td>"
 				+"<td><font color=\"" + color + "\">" + rst.getString(3) + "</font></td>"
-				+ "<td><font color=\"" + color + "\">" + bookCategory + "</font></td>"
-				+ "<td><font color=\"" + color + "\">" + currFormat.format(rst.getDouble(3))
+				+"<td><font color=\"" + color + "\">" + rst.getString(4) + "</font></td>"
+				+ "<td><font color=\"" + color + "\">" + rst.getString(5) + "</font></td>"
+				+ "<td><font color=\"" + color + "\">" + currFormat.format(rst.getDouble(6))
 				+ "</font></td></tr>");
+
+			
 	}
 	out.println("</table></font>");
 	closeConnection();

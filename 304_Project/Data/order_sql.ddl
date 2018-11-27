@@ -1,3 +1,11 @@
+ALTER TABLE Auction DROP CONSTRAINT FK_Auction_webUser;
+ALTER TABLE Auction DROP CONSTRAINT FK_Auction_PaymentInfo;
+ALTER TABLE Auction DROP CONSTRAINT FK_Auction_Company;
+ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_User;
+ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_Auction;
+ALTER TABLE PaymentInfo DROP CONSTRAINT FK_PaymentInfo_webUser;
+
+
 DROP TABLE Book;
 DROP TABLE Complaint;
 DROP TABLE Bids;
@@ -6,10 +14,12 @@ DROP TABLE Shipment;
 DROP TABLE CreditCard;
 DROP TABLE Paypal;
 DROP TABLE Bitcoin;
-DROP TABLE Auction;
 DROP TABLE Company;
 DROP TABLE PaymentInfo;
 DROP TABLE webUser;
+DROP TABLE savedAuctions;
+DROP TABLE Auction;
+
 
 
 CREATE TABLE webUser(
@@ -38,7 +48,7 @@ CREATE TABLE Company(
 );
 
 CREATE TABLE Auction(
-	auctionID int NOT NULL,
+	auctionID int NOT NULL IDENTITY,
 	billingAddress   VARCHAR(50),
 	startDate  DATETIME,
 	endDate  DATETIME,
@@ -87,6 +97,13 @@ CREATE TABLE Bids(
 	PRIMARY KEY (buyerUserName,auctionID),
 	CONSTRAINT FK_Bids_User FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName),
 	CONSTRAINT FK_Bids_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
+);
+CREATE TABLE savedAuctions(
+	auctionID   int  NOT NULL,
+	buyerUserName VARCHAR(30)  NOT NULL,
+	PRIMARY KEY (buyerUserName,auctionID),
+	CONSTRAINT FK_savedAuctions_User FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName),
+	CONSTRAINT FK_savedAuctions_Auction FOREIGN KEY (auctionID)  REFERENCES  Auction(auctionID)
 );
 
 CREATE TABLE ShippingAddress(
@@ -160,16 +177,16 @@ INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','bill
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
 DECLARE @auctionID int
-INSERT INTO Auction (auctionID,billingAddress,highestBid,sellerUserName,buyerUserName,invioceID) VALUES (1,'billingaddress','700.50','JeffDaniels12','HelenfromHell','1')
+INSERT INTO Auction  VALUES ('billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell',1)
 SELECT @auctionID = @@IDENTITY
 INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
 
 DECLARE @auctionID int
-INSERT INTO Auction VALUES (2,'billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2)
+INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2)
 SELECT @auctionID = @@IDENTITY
 INSERT INTO Book VALUES ('987345984780100',@auctionID,'Biology','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
 
 DECLARE @auctionID int
-INSERT INTO Auction VALUES (3,'billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3)
+INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3)
 SELECT @auctionID = @@IDENTITY
 INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL);
