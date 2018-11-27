@@ -64,8 +64,8 @@ label {
 	<%
 		// Print prior error login message if present
 		if (session.getAttribute("loginMessage") != null){
-			out.println("<p align='center' style='color:red;'>" + session.getAttribute("loginMessage").toString()
-					+ "</p>");
+			out.println("<p align='center' style='color:red;'><b>" + session.getAttribute("loginMessage").toString()
+					+ "</b></p>");
 			session.removeAttribute("loginMessage");
 		}
 	%>

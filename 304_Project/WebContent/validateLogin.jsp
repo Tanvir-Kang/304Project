@@ -27,7 +27,7 @@ ZACH -->
 			out.println(e);
 		}
 		if (authenticatedUser != null)
-			response.sendRedirect("protectedPage.jsp"); // Success
+			response.sendRedirect("homepage.jsp"); // Success
 		else
 			response.sendRedirect("login.jsp"); // Failed login
 		// Redirect back to login page with a message

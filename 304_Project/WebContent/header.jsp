@@ -112,6 +112,7 @@ nav .search-container button:hover {
 	<div class="header">
 		<h1>BookBids</h1>
 		<p>Watch the bids start rolling in.</p>
+		
 	</div>
 
 	<!-- /HEADER -->
