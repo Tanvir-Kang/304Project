@@ -15,6 +15,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Map"%>
 
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -210,81 +211,82 @@ left-margin:40px;
 			if (session.getAttribute("repostingBooks") != null)
 				out.println("<p align='center' style='color:red;'>" + session.getAttribute("repostingBooks").toString() + "</p>");
 		%><h1>Selling</h1>
-			<form method= "get" action="postBookForAuction.jsp">
-			Book Title <br>
-			<input type="text" name="title" placeholder="Book Title" required> <br>
-			ISBN <br>
-			<input type="text" name="isbn" placeholder="ISBN: 978-3-16-148410-0" pattern="[0-9].{10}" required> <br>
-			Author <br>
-			<input type="text" name="author" placeholder="Author" maxlength="100" required> <br>
-			edition <br>
-			<input type="number" name="edition" placeholder="" max="50" min ="1" required> <br>
-			  Quality(out of 5 stars, where 5 is excellent and 0 is terrible) <br>
-			<input type="number" name="quality" placeholder="0-5 stars" max="5" min ="0" step="1" required> <br>
-			 Starting Price <br>
-			<input type="number" name="startPrice" placeholder="" max="300" min ="0" step="1" required> <br>
-			 Length of Auction <br>
-			<input type="number" name="endDate" placeholder="One Week Limit" max="7" min ="1" step="1" size = "15" required> <br>
-			Description of the Book <br>
-			<input type="text" name="description" placeholder="150 character limit" maxlength="150" size ="150"> <br>
-			  <p align="left">
-			
-			  <select size="1" name="subject" required>
-				  	
-				  <option value ="Anthropology">Anthropology</option>
-	s			  <option>Applied Science Professional Platform</option>
-				  <option>Applied Science </option>
-				  <option>Art History and Visual Culture</option>
-				  <option>Astronomy</option>
-				  <option>Biochemistry</option>       
-				  <option>Biology</option>
-				  <option>Creative and Critical Studies</option>
-				  <option>Chemistry</option>
-				  <option>Computer Science</option>
-				  <option>Creative Writing</option>
-				  <option>Cultural Studies</option>
-				  <option>Curriculum Studies</option>
-				  <option>Data Science</option>
-				  <option>Digital Humanities</option>
-				  <option>Educational Administration</option>
-				  <option>Early Childhood Education</option>
-				  <option>Economics</option> 
-				  <option>Educational Studies</option>
-				  <option>Earth and Environmental Sciences</option>
-				  <option>English</option>
-				  <option>Engineering</option>
-				  <option>Educational Psychology and Special Education</option>
-				  <option>Educational Technology</option>
-				  <option>Film</option>
-				  <option>French</option>
-				  <option>Geography</option>
-				  <option>German</option>
-				  <option>Health Studies</option>
-				  <option>Health-Interprofessional</option>
-				  <option>History</option>
-				  <option>Human Kinetics</option>
-				  <option>Indigenous Studies</option>
-				  <option>Japanese Studies </option>
-				  <option>Language and Literacy Education</option>
-				  <option>Mathematics</option>
-				  <option>Media Studies</option>
-				  <option>Management</option>
-				  <option>Nursing</option>
-				  <option>Philosophy</option>
-				  <option>Physics</option>
-				  <option>Political Science</option>
-				  <option>Psychology</option>
-				  <option>Sociology</option>
-				  <option>Spanish</option>
-				  <option>Statistics</option>
-				  <option>Theatre</option>
-				  <option>World Literature</option>
- 			</select> <br>
- 			Upload a Book Cover <br>
- 			 <input type="file" name="pic" accept="image/*"> <br>
-  			
-
- 			<input type="submit" value="Start Your Auction">
+			<form action="PostAuction" method= "post" enctype = "multipart/form-data">
+					<input type="hidden" name="user" value ="<%out.print(user);%>">
+					Book Title <br>
+					<input type="text" name="title" placeholder="Book Title" required> <br>
+					ISBN <br>
+					<input type="text" name="isbn" placeholder="ISBN: 978-3-16-148410-0" pattern="[0-9].{10}" required> <br>
+					Author <br>
+					<input type="text" name="author" placeholder="Author" maxlength="100" required> <br>
+					edition <br>
+					<input type="number" name="edition" placeholder="" max="50" min ="1" required> <br>
+					  Quality(out of 5 stars, where 5 is excellent and 0 is terrible) <br>
+					<input type="number" name="quality" placeholder="0-5 stars" max="5" min ="0" step="1" required> <br>
+					 Starting Price <br>
+					<input type="number" name="startPrice" placeholder="" max="300" min ="0" step="1" required> <br>
+					 Length of Auction <br>
+					<input type="number" name="endDate" placeholder="One Week Limit" max="7" min ="1" step="1" size = "15" required> <br>
+					Description of the Book <br>
+					<input type="text" name="description" placeholder="150 character limit" maxlength="150" size ="150"> <br>
+					  <p align="left">
+					
+					  <select size="1" name="subject" required>
+						  	
+						  <option value ="Anthropology">Anthropology</option>
+						  <option>Applied Science Professional Platform</option>
+						  <option>Applied Science </option>
+						  <option>Art History and Visual Culture</option>
+						  <option>Astronomy</option>
+						  <option>Biochemistry</option>       
+						  <option>Biology</option>
+						  <option>Creative and Critical Studies</option>
+						  <option>Chemistry</option>
+						  <option>Computer Science</option>
+						  <option>Creative Writing</option>
+						  <option>Cultural Studies</option>
+						  <option>Curriculum Studies</option>
+						  <option>Data Science</option>
+						  <option>Digital Humanities</option>
+						  <option>Educational Administration</option>
+						  <option>Early Childhood Education</option>
+						  <option>Economics</option> 
+						  <option>Educational Studies</option>
+						  <option>Earth and Environmental Sciences</option>
+						  <option>English</option>
+						  <option>Engineering</option>
+						  <option>Educational Psychology and Special Education</option>
+						  <option>Educational Technology</option>
+						  <option>Film</option>
+						  <option>French</option>
+						  <option>Geography</option>
+						  <option>German</option>
+						  <option>Health Studies</option>
+						  <option>Health-Interprofessional</option>
+						  <option>History</option>
+						  <option>Human Kinetics</option>
+						  <option>Indigenous Studies</option>
+						  <option>Japanese Studies </option>
+						  <option>Language and Literacy Education</option>
+						  <option>Mathematics</option>
+						  <option>Media Studies</option>
+						  <option>Management</option>
+						  <option>Nursing</option>
+						  <option>Philosophy</option>
+						  <option>Physics</option>
+						  <option>Political Science</option>
+						  <option>Psychology</option>
+						  <option>Sociology</option>
+						  <option>Spanish</option>
+						  <option>Statistics</option>
+						  <option>Theatre</option>
+						  <option>World Literature</option>
+		 			</select> <br>
+		 			Upload a Book Cover <br>
+		 			
+		 			<input type="file" name="pic" accept="image/*"> <br>
+		  			
+		 			<input type="submit" value="Start Your Auction">
  			</form> 	 
 		<%	
 			} else if (subFeature.equals("old")){

@@ -4,7 +4,7 @@ ALTER TABLE Auction DROP CONSTRAINT FK_Auction_Company;
 ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_User;
 ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_Auction;
 ALTER TABLE PaymentInfo DROP CONSTRAINT FK_PaymentInfo_webUser;
-
+ALTER TABLE ProductImage DROP CONSTRAINT FK_Photo_Auction;
 
 DROP TABLE Book;
 DROP TABLE Complaint;
@@ -19,8 +19,15 @@ DROP TABLE PaymentInfo;
 DROP TABLE webUser;
 DROP TABLE savedAuctions;
 DROP TABLE Auction;
+DROP TABLE productImage;
 
-
+CREATE TABLE ProductImage (
+	photoID	int NOT NULL, 
+	path	varchar(255)
+	PRIMARY KEY (photoID),
+	CONSTRAINT FK_Photo_Auction FOREIGN KEY (photoID)  REFERENCES Auction(auctionID),
+	
+);
 
 CREATE TABLE webUser(
 	userName  VARCHAR(30)   NOT  NULL,
