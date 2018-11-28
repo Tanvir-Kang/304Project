@@ -91,20 +91,21 @@ TANVIR-->
 	%>
 	<!-- setting up forms to get updated book info-->
 	<b>Editable Fields:</b>
+	<p>To edit a field simply click the field and add the updated information</p>
+	<p>WARNING THESE FIELD DO NOT PERFORM VALIDATION AND YOU MAY CAUSE THE SERVER TO CRASH ENSURE THAT YOU A COMPETENT ADMIN BEFORE PROCEEDING</p> 
 	
-	<p>To edit a field simply click the field and add the updated information</p><br>
-	<p>WARNING THESE FIELD DO NOT PERFORM VALIDATION AND YOU MAY CAUSE THE SERVER TO CRASH</p> 
-	<p>ENSURE THAT YOU A COMPETENT ADMIN BEFORE PROCEEDING</p> 
+	<p>**Note you cannot modify primary key fields**</p> 
 	
 	<form action="updateAuctionAdmin.jsp" method = "POST">
-	<input type="hidden" id="auction" name="inAuction" value=<%=auctionID %>>
-	ISBN: <input  disabled type="text" name="inISBN" value = <%= ISBN %> readonly="readonly"><br><br>
-	Title: <input disabled  type="text" name="inTitle" value = <%= title%>><br><br>
-	Subject: <input disabled  type="text" name="inSubject" value = <%= subject%>><br><br>
-	Author: <input  disabled type="text" name="inAuthor" value = <%= author%>><br><br>
-	Edition: <input disabled type="text" name="inEdition" value = <%= edition%> ><br><br>
-	Quality: <input disabled type="text" name="inQuality" value = <%= quality%>><br><br>
-	Start Price: <input disabled type="text" name="inSP" value = <%= startPrice%>><br><br>
+	Auction ID: <input type="text" name="inAuction" value=<%=auctionID %> readonly><br><br>
+	ISBN: <input type="text" name="inISBN" value = <%= ISBN %> readonly><br><br>
+	Seller: <input type="text" name="inSeller" value = <%= sellerUserName %> readonly ><br><br>
+	Title: <input type="text" name="inTitle" value = <%= title%>><br><br>
+	Subject: <input type="text" name="inSubject" value = <%= subject%>><br><br>
+	Author: <input type="text" name="inAuthor" value = <%= author%>><br><br>
+	Edition: <input type="text" name="inEdition" value = <%= edition%> ><br><br>
+	Quality: <input type="text" name="inQuality" value = <%= quality%>><br><br>
+	Start Price: <input type="text" name="inSP" value = <%= startPrice%>><br><br>
 	Description: <input type="text" name="inDescription" value = <%= description%>><br><br>
 	<input type="submit" value="Submit form">
 	</form>

@@ -38,21 +38,21 @@
 	}
 	%>
 	<%
-	String ISBN2= null;	
-	String title2 = null;;	
-	String subject2=  null;
-	String author2= null;
-	String description2= null;
-
-		ISBN2 = request.getParameter("inISBN");	
- 		title2 = request.getParameter("inTitle");	
-		subject2= request.getParameter("inSubject");
-		author2= request.getParameter("inAuthor");
-		description2 = request.getParameter("inDescription");
+	String	quality = request.getParameter("inQuality");
+	String	startPrice = request.getParameter("inSP");
+	String	edition = request.getParameter("inEdition");
+	String	auctionID =request.getParameter("inAuction");
+	String	sellerUser = request.getParameter("inSeller");
+	String	ISBN2 = request.getParameter("inISBN");	
+	String	title2 = request.getParameter("inTitle");	
+	String	subject2= request.getParameter("inSubject");
+	String	author2= request.getParameter("inAuthor");
+	String	description2 = request.getParameter("inDescription");
 	
-out.println("<p>" + ISBN2 + title2 + subject2 + author2 + description2 + "</p>");
-
-
+	int edition2 = Integer.parseInt(edition);
+	int auctionID2 = Integer.parseInt(auctionID);
+	double startPrice2 = Double.parseDouble(startPrice);
+	int quality2 = Integer.parseInt(quality);
 	
 	%>
 	<%
@@ -61,14 +61,16 @@ out.println("<p>" + ISBN2 + title2 + subject2 + author2 + description2 + "</p>")
 		PreparedStatement updateStmt = null;
 		ResultSet updateRst = null;
 		
-		updateStmt = con.prepareStatement("UPDATE Book SET title = ?, subject = ?, author = ?, description = ? WHERE auctionID LIKE ?");
+		updateStmt = con.prepareStatement("UPDATE Book SET title = ?, subject = ?, author = ?,edition = ?, quality = ?, startPrice = ?,  description = ? WHERE auctionID = ?");
 		
 		updateStmt.setString(1, title2);
 		updateStmt.setString(2, subject2);
 		updateStmt.setString(3, author2);
-	
-		updateStmt.setString(4, description2);
-		updateStmt.setString(5, ISBN2);
+		updateStmt.setInt(4, edition2);
+		updateStmt.setInt(5, quality2);
+		updateStmt.setDouble(6, startPrice2);
+		updateStmt.setString(7, description2);
+		updateStmt.setInt(8, auctionID2);
 		updateStmt.executeUpdate();
 		
 		}
@@ -79,7 +81,7 @@ out.println("<p>" + ISBN2 + title2 + subject2 + author2 + description2 + "</p>")
 	}
 	
 	%>
-	<!-- recieving data for updated book info-->	
+	
 
 		<p>Update Successful</p><br>
 			<p>Press Back on header to return</p><br>
