@@ -31,8 +31,6 @@ String uName = "%" + input + "%" ;
 out.println("<p>Infomation about: " + input + "</p>");
 out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUser.jsp?userName=" + input +">"+ input + "</a></p>");
 
-//userDisplay.append("<tr><td>"+"<a href=userInfo.jsp?userName=" + userName + ">"+userName+"</td>" );
-
 
 //Making connection
 		loginDetails ld = new loginDetails();

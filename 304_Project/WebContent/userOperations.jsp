@@ -28,10 +28,7 @@ TANVIR-->
 				<button type="submit">Submit</button>
 				<button type="submit">Reset Search</button>
 			</form>
-		</div>
-		<div class="topnav-right">
-			<a href="#search">Search</a> <a href="#about">About</a>
-		</div>
+			</div>
 	</nav>
 	
 	<%

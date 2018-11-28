@@ -23,7 +23,7 @@ TANVIR-->
 	</div>
 	
 		<nav>
-		<a class="active" href="homepage.html">Home</a> 
+		<a class="active" href="homepage.jsp">Home</a> 
 		
 	</nav>
 	
