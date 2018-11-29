@@ -3,6 +3,7 @@
 
 
 TANVIR-->
+<%@ include file="adminAuth.jsp"%>
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -45,12 +46,10 @@ try(Connection con = DriverManager.getConnection(url, uid, pw);){
 	PreparedStatement allOrders = null;
 	ResultSet resultallOrders = null;
 	out.println("<br><center><b>All Orders</b>");
-	
+//vars to keep count of total revenue and number of auctions
 	double totalFeeCollected = 0;
 	int totalNumAuctions = 0;
-	 List<Double> fee = new ArrayList<>();
-	 List<Integer> auctions = new ArrayList<>();
-	 
+ 
 	allOrders = con.prepareStatement("SELECT auctionID, highestBid, sellerUserName, buyerUserName, Auction.invioceID, auctionFee FROM Auction JOIN Company ON Auction.invioceID=Company.invioceID", resultallOrders.TYPE_SCROLL_INSENSITIVE,resultallOrders.CONCUR_READ_ONLY);
 	resultallOrders = allOrders.executeQuery();
 	if(resultallOrders.next()==false){out.println("<p> No orders to display</p>");}
@@ -73,8 +72,7 @@ try(Connection con = DriverManager.getConnection(url, uid, pw);){
 			out.println("<td>" + invioceID + "</td>");
 			out.println("<td>" + auctionFee + "</td></tr>");
 	
-			auctions.add(totalNumAuctions);
-			fee.add(totalFeeCollected);
+	
 			totalNumAuctions +=1;
 			totalFeeCollected +=auctionFee;
 		}
@@ -83,8 +81,7 @@ try(Connection con = DriverManager.getConnection(url, uid, pw);){
 		out.println("<p><b> Total Number of auctions: " + totalNumAuctions +"</b></p></center>");
 
 	}
-session.setAttribute("revenueList", fee);
-session.setAttribute("auctionList",auctions);
+
 }
 catch(SQLException ex){
 	out.println(ex);

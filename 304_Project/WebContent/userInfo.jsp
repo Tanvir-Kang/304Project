@@ -3,6 +3,7 @@
 
 
 TANVIR-->
+<%@ include file="adminAuth.jsp"%>
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -26,7 +27,7 @@ TANVIR-->
 	</nav>
 <%
 String input = request.getParameter("userName");
-
+//ability to delete users, lead to new action page
 String uName = "%" + input + "%" ;
 out.println("<p>Infomation about: " + input + "</p>");
 out.println("<p>Click here to delete this user (No undo!): " + "<a href=deleteUser.jsp?userName=" + input +">"+ input + "</a></p>");

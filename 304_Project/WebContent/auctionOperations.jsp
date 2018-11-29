@@ -3,6 +3,7 @@
 
 
 TANVIR-->
+<%@ include file="adminAuth.jsp"%>
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -87,6 +88,7 @@ TANVIR-->
 			out.println("<th align='left'>Author</th>"+"<th align='left'>Edition</th>"+"<th align='left'>Quality</th>"+"<th align='left'>Start Price</th>"+"<th align='left'>Description</th>"+"</tr>");
 
 			while(resultAuctions.next()){
+//Getting all entries from rs
 				String ISBN = resultAuctions.getString("ISBN");
 				int auctionID = resultAuctions.getInt("auctionID");
 				String title = resultAuctions.getString("title");
@@ -97,6 +99,7 @@ TANVIR-->
 				int quality = resultAuctions.getInt("quality");
 				double startPrice = resultAuctions.getDouble("startPrice");
 				String description = resultAuctions.getString("description");
+//printing out all auction entries
 				out.println("<tr><td>"+"<a href=editAuctionAdmin.jsp?ISBN="+ ISBN + ">" + ISBN + "</td>");
 				out.println("<td>" + auctionID + "</td>");
 				out.println("<td>" + title + "</td>");

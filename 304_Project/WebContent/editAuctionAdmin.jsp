@@ -3,6 +3,7 @@
 
 
 TANVIR-->
+<%@ include file="adminAuth.jsp"%>
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -49,7 +50,7 @@ TANVIR-->
 	%>
 				
 	<%
-	//All result set values
+	//initialzing variables as global so they work with forms below not just in while loop
 				int auctionID = 0;
 				String title = null;
 				String sellerUserName= null;
@@ -68,8 +69,10 @@ TANVIR-->
 		bookStmt = con.prepareStatement("SELECT * FROM Book WHERE ISBN LIKE ?",bookRst.TYPE_SCROLL_SENSITIVE, bookRst.CONCUR_READ_ONLY);
 		bookStmt.setString(1, ISBN);
 		bookRst = bookStmt.executeQuery();
+//if the rs is empty, let user know 
 		if(bookRst.next()==false){out.println("<br><center><b>Error no books found with the selected ISBN</b>");}
 		else{
+//reset rs to before first row if not empty 
 			bookRst.beforeFirst();
 			while(bookRst.next()){
 				
@@ -89,12 +92,14 @@ TANVIR-->
 		out.println(ex);
 	}
 	%>
-	<!-- setting up forms to get updated book info-->
+	<!-- setting up forms to get updated book info and warning to new admins-->
 	<b>Editable Fields:</b>
 	<p>To edit a field simply click the field and add the updated information</p>
 	<p>WARNING THESE FIELD DO NOT PERFORM VALIDATION AND YOU MAY CAUSE THE SERVER TO CRASH ENSURE THAT YOU A COMPETENT ADMIN BEFORE PROCEEDING</p> 
 	
 	<p>**Note you cannot modify primary key fields**</p> 
+		<!-- get values from Java, and primary key fields are set to 'readonly' to ensure they are not modified-->
+			<!--form posts to updateAuctionAdmin which is the 'action page' gets all values and updates the DB-->
 	
 	<form action="updateAuctionAdmin.jsp" method = "POST">
 	Auction ID: <input type="text" name="inAuction" value=<%=auctionID %> readonly><br><br>

@@ -1,3 +1,9 @@
+<!-- TANVIR
+
+
+
+TANVIR-->
+<%@ include file="adminAuth.jsp"%>
 <%@ page import="java.sql.*, data.loginDetails"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -48,7 +54,7 @@
 	String	subject2= request.getParameter("inSubject");
 	String	author2= request.getParameter("inAuthor");
 	String	description2 = request.getParameter("inDescription");
-	
+//recieve these values as string but need to be convered to int/double to correctly update SQL
 	int edition2 = Integer.parseInt(edition);
 	int auctionID2 = Integer.parseInt(auctionID);
 	double startPrice2 = Double.parseDouble(startPrice);
