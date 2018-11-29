@@ -23,9 +23,9 @@ body {
 
 /* Style the header */
 .header {
-	padding: 80px;
+	padding: 40px;
 	text-align: center;
-	background: #6FBEE7;
+	background: #905533;
 	color: white;
 }
 
@@ -34,11 +34,8 @@ body {
 	font-weight: bolder;
 }
 .header img {
-  float: left;
-  width: 100px;
-  height: 100px;
-  background: #555;
-  margin-left: 100px;
+  width: 250px;
+  height: 250px;
 
 }
 
@@ -75,7 +72,7 @@ nav a:hover {
 }
 
 nav a.active {
-	background-color: #133054;
+	background-color: #233852;
 }
 
 nav input[type=text] {
@@ -92,7 +89,7 @@ nav .search-container button {
 	padding: 6px 10px;
 	margin-top: 4px;
 	margin-bottom: 5px;
-	background: #e1612f;
+	background: #e7976f;
 	font-size: 17px;
 	border: none;
 	cursor: pointer;
@@ -118,9 +115,7 @@ nav .search-container button:hover {
 <body>
 	<!-- HEADER  -->
 	<div class="header">
-		<!-- <img src="images/drawingText.jpg" alt="Logo"> -->
-		<h1>BookBids</h1>
-		<p>Watch the bids start rolling in.</p>
+		<img src="images/bookbids.png" alt="Logo">
 
 	</div>
 
