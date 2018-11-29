@@ -33,6 +33,14 @@ body {
 	font-size: 40px;
 	font-weight: bolder;
 }
+.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: #555;
+  margin-left: 100px;
+
+}
 
 nav {
 	width: 100%;
@@ -110,9 +118,10 @@ nav .search-container button:hover {
 <body>
 	<!-- HEADER  -->
 	<div class="header">
+		<img src="images/drawingText.jpg" alt="Logo">
 		<h1>BookBids</h1>
 		<p>Watch the bids start rolling in.</p>
-		
+
 	</div>
 
 	<!-- /HEADER -->
@@ -158,8 +167,7 @@ nav .search-container button:hover {
 			<%
 				}
 			%>
-			<a href="account.jsp">My Account</a>
-			<a href="logout.jsp">Logout</a>
+			<a href="account.jsp">My Account</a> <a href="logout.jsp">Logout</a>
 
 		</div>
 
