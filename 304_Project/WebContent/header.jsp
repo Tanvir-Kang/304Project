@@ -118,7 +118,7 @@ nav .search-container button:hover {
 <body>
 	<!-- HEADER  -->
 	<div class="header">
-		<img src="images/drawingText.jpg" alt="Logo">
+		<!-- <img src="images/drawingText.jpg" alt="Logo"> -->
 		<h1>BookBids</h1>
 		<p>Watch the bids start rolling in.</p>
 
