@@ -29,7 +29,7 @@ Zach's stupid scratchpad file
 
 		//C:/Users/Zach/git/304Project/304_Project/WebContent/images/drawingText.jpg
 		Connection con = DriverManager.getConnection(url, uid, pw);
-		File imgFile = new File("C:/Users/Zach/git/304Project/304_Project/WebContent/images/drawingText.jpg");
+		File imgFile = new File("drawingText.jpg");
 		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		FileInputStream fin = new FileInputStream(imgFile);
 		byte[] image = new byte[(int) imgFile.length()];
