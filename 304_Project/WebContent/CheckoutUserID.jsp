@@ -82,7 +82,7 @@ button {
 	<h1 align="left" style="font-size: 20px;">BC sales tax 7%: $<%out.print(df.format(Double.parseDouble(request.getParameter("price").trim())*0.07));%></h1>
 <h1 align="left" style="font-size: 20px;">Federal sales tax 5%: $<%out.print(df.format(Double.parseDouble(request.getParameter("price").trim())*0.05));%></h1>
 	
-<h1 align="left" style="font-size: 20px;">BookBids 1% fee: $<%out.print(df.format(Double.parseDouble(request.getParameter("price").trim())*0.01));%></h1>
+<h1 align="left" style="font-size: 20px;">BookBids 1% fee: $<%out.print(df.format(Double.parseDouble(request.getParameter("price").trim())*0.15));%></h1>
 
 <h1 align="left" style="font-size: 30px;">Auction Total: $<%out.print(df.format((Double.parseDouble(request.getParameter("price").trim())*0.01) + Double.parseDouble(request.getParameter("price").trim())*0.05+Double.parseDouble(request.getParameter("price").trim())*0.07+Double.parseDouble(request.getParameter("price").trim())));%></h1>
 
