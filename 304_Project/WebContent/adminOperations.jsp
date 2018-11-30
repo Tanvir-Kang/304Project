@@ -40,6 +40,9 @@ TANVIR-->
 <form action="listAllOrders.jsp">
     <input type="submit" value="Show all orders" />
 </form>	
+<form action="databaseRestore.jsp">
+    <input type="submit" value="Restore DB" />
+</form>	
 
 
 	
