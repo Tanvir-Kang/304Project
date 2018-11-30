@@ -412,7 +412,11 @@ if ("detailed".equals(request.getParameter("feature")))
 	isGrid=false;
 if (isGrid==true){
 for (i=0; i<auctionId.size();i++) {
-	String imgsrc = "displayImage.jsp?auctionid=" + auctionId.get(i);
+	String imgsrc;
+	if(image.get(i) == null || image.get(i).isEmpty())
+	imgsrc = "textbook.jpeg";
+	else
+	imgsrc = "displayImage.jsp?auctionid=" + auctionId.get(i);
 %>
     <li>
 	          <center><div class="thumbnail"><img src= <%=imgsrc %> width="200" height="200"></div></center>

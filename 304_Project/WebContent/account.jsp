@@ -209,7 +209,7 @@ l {colour: black;
     padding-top: 20px;
 }
 #sideList {
-	margin-top: -200px;
+	margin-top: -260px;
  	top: 50%;
  	margin-left: 100;
     width: 150px;
@@ -278,7 +278,7 @@ left-margin:40px;
 		<div id ="sideList">
 						<form method="get" action="account.jsp">
 							<input type="hidden" value="selling" name="feature" >
-							<button type="submit" class="sideBarButton">Selling</button>
+							<button type="submit" class="sideBarButton">Your Listings</button>
 						</form>
 						<form method="get" action="account.jsp">
 							<input type="hidden" value="bids" name="feature" >
@@ -293,10 +293,14 @@ left-margin:40px;
 							
 							<button type="submit" class="sideBarButton">Auctions</button>
 						</form>
-						
-			s				<form method="get" action="account.jsp">
+		
+								<form method="get" action="account.jsp">
 							
-							<button type="submit" class="sideBarButton">Account</button>
+							<button type="submit" class="sideBarButton">Account Settings</button>
+						</form>
+							<form method="get" action="userReview.jsp">
+							
+							<button type="submit" class="sideBarButton">User Reviews</button>
 						</form>
 							<form method="get" action="homepage.jsp">
 							<button type="submit" class="sideBarButton">Home</button>
@@ -491,8 +495,156 @@ left-margin:40px;
 				
 				
 			}
-		}else if (feature.equals("bids")){
-			out.print("<p1>Bids</p1>");
+		}else if (feature.equals("bids")|| sub != null){
+	
+			
+			String auctionId = request.getParameter("auctionId");
+				
+			// Making connection
+				loginDetails ld = new loginDetails();
+				String url = ld.getUrl();
+				String uid = ld.getUid();
+				String pw = ld.getPw();
+				Connection con = DriverManager.getConnection(url, uid, pw);
+			
+				try{
+					
+					
+			
+						String SQL = "SELECT Book.auctionId,title,edition,highestBid, author, ISBN, quality, endDate, subject,description, image, buyerUserName, Book.sellerUserName FROM Book, Auction WHERE Book.auctionID= Auction.auctionID AND buyerUserName = ? AND endDate < sysdatetime()";
+
+								String value=user;
+					
+					
+					
+					PreparedStatement pstmt99 = con.prepareStatement(SQL);
+			
+					
+					pstmt99.setString(1, user);
+					
+					ResultSet rst99 = pstmt99.executeQuery();
+				
+						
+						List<String> Id = new ArrayList<>();
+						List<String> title = new ArrayList<>();
+						List<String> edition = new ArrayList<>();
+						List<String> highestBid = new ArrayList<>();
+						List<String> author = new ArrayList<>();
+						List<String> ISBN = new ArrayList<>();
+						List<String> quality = new ArrayList<>();
+						List<String> endDate = new ArrayList<>();
+						List<String> subject = new ArrayList<>();
+						List<String> description = new ArrayList<>();
+						List<String> image = new ArrayList<>();
+						List<String> buyerUser = new ArrayList<>();
+						List<String> sellerUser = new ArrayList<>();
+					
+						%><ul class="books de"><h1>Auctions You've Won</h1></ul><%
+						while(rst99.next()){
+		
+							Id.add(rst99.getString("auctionID"));
+							title.add(rst99.getString("title"));
+							
+							highestBid.add(rst99.getString("highestBid"));
+							author.add(rst99.getString("author"));
+							ISBN.add(rst99.getString("ISBN"));
+						
+						
+							
+							sellerUser.add(rst99.getString("sellerUserName"));
+							image.add(rst99.getString("image"));	
+						
+						}
+						
+		
+						
+						
+						
+						
+						%>	<ul class="books de"><%
+					for (int i=0; i<Id.size();i++){
+								
+							
+						
+							%>
+						
+							
+							    	<table class="a">
+							    		<tr>
+								         	<th>
+								         	<center>	<div class="thumbnail"><img src="textbook.jpeg"></div></center>
+								         	</th>
+								       		<th><div class="main2">
+								       			<table> 
+								       				<tr> 
+								       					<th><center>
+								       						<table>
+								       						<tr> <ul class="books">   
+									       					 <mn><h1 class="font"><%out.println(title.get(i));%></h1></mn>
+									       				
+									       					
+									       					</ul>
+															<tr></tr><tr>
+															  
+															
+															<ul class="books"> 
+															<mn><p class="font">Author: <%out.println(author.get(i));%></p></mn>
+															<mn><p class="font">ISBN: <%out.println(ISBN.get(i));%></p></mn>
+								     						
+								     						
+								     					
+								     						<mn><h2 class="fontMoney">Your Winning Bid: $<%out.println(highestBid.get(i));%></h2></mn>
+								     					
+								     						</tr>
+								     						
+								     				
+								     							
+								     							
+								     		
+								     						</ul></tr>
+								     						</table></center>
+								     					</th> 
+								     				 </tr>
+								     				 <tr>
+								     				<th>
+								     			
+								     				 		
+								         			</th>
+								         			</tr><tr>	
+								         				<th><center>
+								         					<table> <tr><th> 
+																		<form method="get" action="CheckoutUserID.jsp">
+																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >												
+																		<input type="hidden" value="<%out.println(sellerUser.get(i));%>" name="seller" >
+																		<input type="hidden" value="<%out.println(highestBid.get(i));%>" name="price" >
+																			<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
+																		<button type="submit" class="sideBarButton button2">Settle the Auction</button></form>
+															</table></center>
+														</th>
+													</tr>
+										</table></div>
+									</th>
+								</tr>
+							</table>
+							   	
+							   
+					
+							
+						
+							<%
+							
+								     						}
+						%></ul></div><%
+						}catch(Exception ex){
+							out.println(ex);}
+						
+			
+	
+			 %>
+				<script>
+					setTimeout("account.jsp?feature=selling");
+				</script>
+				<%
 		
 		}else if ((feature.equals("watching")) || sub != null){
 			
@@ -593,7 +745,7 @@ left-margin:40px;
 								       						<table>
 								       						<tr> <ul class="books">   
 									       					 <mn><h2 class="font"><%out.println(title.get(i));%></h2></mn>
-									       					<mn><h2 class="font">Ed: <%out.println(edition.get(i));%></h2></mn>
+									       					<mn><h2 class="font">ed. <%out.println(edition.get(i));%></h2></mn>
 									       					<mn><h2 class="fontMoney">$<%out.println(highestBid.get(i));%></h2></mn>
 									       					</ul>
 															<tr></tr><tr>
