@@ -8,7 +8,8 @@
 	Sam --> 
 
 
-
+<%@ page import ="java.util.ArrayList"%>
+<%@ page import ="java.util.List"%>
 <%@ page import="java.text.NumberFormat"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Iterator"%>
@@ -26,6 +27,7 @@
 <title>Account</title>
 </head>
 <%String feature = request.getParameter("feature"); 
+String sub = request.getParameter("sub"); 
 
 	String subFeature = request.getParameter("subFeature");%>
 
@@ -40,6 +42,128 @@ Only allow access to logged in users. -->
 <style>
 
 <!-- help with the sideBar came from this tutorial: https://bootstrapious.com/p/bootstrap-sidebar -->
+.tab{
+border: 1px solid black;
+text-align:center;
+
+
+}
+
+.main1{
+		position: relative;
+ 	margin-top: 0px;
+ 	margin-left:0px;
+ 	margin-right:0;
+ 	width:200px;
+ 	height: 100%;
+	background-color: white;
+}
+.main2{
+	position: relative;
+ 	margin-top: 0;
+ 	margin-left:150px;
+ 	margin-right:200px;
+ 	width:70%;
+ 	height: 100%;
+	background-color: white;
+	
+}
+.bodyText{ margin:auto}
+ .paddingtop50{ top:-200%;
+ 	font-family: 'Poppins', sans-serif;}
+.sideBarButton {
+	background-color: #faf2a1;
+	font-family: 'Poppins', sans-serif;
+	border: 3px solid #133054;
+	display: inline-block;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+ 
+    }
+.sideBarButton:hover{
+	background-color: #133054;
+    color: #fcf8d0;
+}
+
+.button1 {
+	padding: 15px 32px;
+	font-size: 15px;
+	width: 125px;	
+		
+		}
+.button2 {
+   	font-size: 15px;
+	width: 50px;
+	border-radius: 12px;}
+
+ul.books mn {
+	
+	margin-top: 5px;
+    display: inline-block;
+    vertical-align: top;
+    *zoom: 1;
+     background-color: white;
+    line-height: 0%;
+}
+ul.books li {
+	margin-top: 5px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+    *display: block;
+    *zoom: 1;
+     background-color: white;
+     border: 2px solid #133054;
+    line-height: 0%;
+}
+ul.books de {
+
+	margin-top: 10px;
+    width: 1000px;
+    height: 110px;
+    padding: 10px;
+    display: inline;
+    vertical-align: top;
+    *display: block;
+    *zoom: 1;
+    background-color: white; 
+    line-height: 0%;
+}
+.thumbnail {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+thumbnail img {
+  position: absolute;
+ 	max-width: 100%;
+    max-height: 100%;
+ 
+}
+
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+.h4 {
+	font-weight: bold;
+ 	font-size: 40px;
+}
+.font{
+	font-family: 'Poppins', sans-serif;
+}
+.fontMoney{ 
+	 font-weight: bold;
+	colour: #511730;
+	font-family: 'Poppins', sans-serif;
+}
+.a{
+	 border: 1px solid #133054;
+	 box-shadow: 2px 2px #133054;
+}
 
 l {colour: black;
 	font-family: 'font-family: 'Rubik', sans-serif;
@@ -52,10 +176,10 @@ l {colour: black;
 }
 #topBar {
 	position:absolute;
-	left:0px;
+	left:0;
 	right:0;
 	top: 0;
-	height:100px;
+	height:0;
 	font-family: 'Rubik';
 	font-size: 50px;
 	background-color: white;
@@ -63,11 +187,14 @@ l {colour: black;
 
 .main{
  	position: fixed;
- 	margin-top: 90px;
+ 	margin-top: 0px;
  	margin-left:150px;
- 	width:100%;
+ 
+ 	width:1000px;
  	height: 100%;
-background-color: #6FBEE7;
+	background-color: white;
+	overflow: auto;
+	
 
 }
 #sideBar {
@@ -75,14 +202,14 @@ background-color: #6FBEE7;
     width: 160px; /* Set the width of the sidebar */
     position: fixed; /* Fixed Sidebar (stay in place on scroll) */
     z-index: 1; /* Stay on top */
-    top: 100px; /* Stay at the top */
+    top: 0; /* Stay at the top */
    	left:0;
     background-color: #133054; /* Black */
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
 }
 #sideList {
-	margin-top: -180px;
+	margin-top: -200px;
  	top: 50%;
  	margin-left: 100;
     width: 150px;
@@ -143,14 +270,7 @@ left-margin:40px;
 }
 </style>
 <body>
-	<div id="topBar">
-		<img src="owlLogo.jpeg" width="100px" height="100px" id="owlLogo">
-		
-		<div id="pageTitle">
-			<b>BookBids</b>
-		</div>
 	
-	</div>
 
 	<div id ="sideBar">
 
@@ -169,9 +289,9 @@ left-margin:40px;
 							<button type="submit" class="sideBarButton">Watching</button>
 						</form>
 							
-							<form method="get" action="account.jsp">
-							<input type="hidden" value="history" name="feature" >
-							<button type="submit" class="sideBarButton">History</button>
+							<form method="get" action="listAuctions.jsp">
+							
+							<button type="submit" class="sideBarButton">Auctions</button>
 						</form>
 						
 			s				<form method="get" action="account.jsp">
@@ -374,7 +494,7 @@ left-margin:40px;
 		}else if (feature.equals("bids")){
 			out.print("<p1>Bids</p1>");
 		
-		}else if (feature.equals("watching")){
+		}else if ((feature.equals("watching")) || sub != null){
 			
 			
 			String auctionId = request.getParameter("auctionId");
@@ -389,57 +509,166 @@ left-margin:40px;
 				try{
 					
 					
-				
-						String SQL = "SELECT Book.auctionId,title,author,subject,startPrice, buyerUserName FROM Book, savedAuctions WHERE Book.auctionID = savedAuctions.auctionID AND buyerUserName =?";
+						String SQL2 = "SELECT auctionID, buyerUserName,bidAmount,dates from Bids WHERE auctionID=?";
+						String SQL = " SELECT Book.auctionId,title,edition,highestBid, author, ISBN, quality, endDate, subject,description, image, Auction.buyerUserName FROM Book, savedAuctions, Auction WHERE Book.auctionID = savedAuctions.auctionID AND Auction.auctionID=savedAuctions.auctionID AND savedAuctions.buyerUserName = ?";
 						String value=user;
 					
-	
 					
-					PreparedStatement pstmt = con.prepareStatement(SQL);
-					pstmt.setString(1, value);
 					
-					ResultSet rst = pstmt.executeQuery();
+					PreparedStatement pstmt9 = con.prepareStatement(SQL);
+					PreparedStatement pstmt8 = con.prepareStatement(SQL2);
 					
-					if (auctionId ==null){
-					out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th class=\"col-md-1\"></th><th>AuctionId</th> <th>Book title</th>");
-					out.println("<th>Author</th><th>Subject</th><th>StartingPrice</th>/th></tr>");
-						while(rst.next()){
+					pstmt9.setString(1, value);
+					int aId=0;
+					if (auctionId != null){
+							aId = Integer.parseInt(auctionId.trim());
 							
-							
-							
-							out.print("<td class=\"col-md-1\"><a href=\"account.jsp?auctionId=" + rst.getString(1) 
-									+ "&feature=selling"
-									+ "&subFeature=old" 
-									+"\">Watch the Bidding</a></td>");
-
-							String bookCategory = rst.getString(4);
-							
-				
-							String colour = "green";
-
-							out.println("<td><font color=\"" + colour + "\">" + rst.getString(1) + "</font></td>"
-									+"<td><font color=\"" + colour + "\">" + rst.getString(2) + "</font></td>"
-									+"<td><font color=\"" + colour + "\">" + rst.getString(3) + "</font></td>"
-									+"<td><font color=\"" + colour + "\">" + rst.getString(4) + "</font></td>"
-									+ "<td><font color=\"" + colour + "\">" + rst.getString(5) + "</font></td>"
-									+ "</font></td></tr>");
-							
+					}
+					pstmt8.setInt(1,aId );
+			
+					ResultSet rst9 = pstmt9.executeQuery();
+					ResultSet bidrst = pstmt8.executeQuery();
+						
+						List<String> Id = new ArrayList<>();
+						List<String> title = new ArrayList<>();
+						List<String> edition = new ArrayList<>();
+						List<String> highestBid = new ArrayList<>();
+						List<String> author = new ArrayList<>();
+						List<String> ISBN = new ArrayList<>();
+						List<String> quality = new ArrayList<>();
+						List<String> endDate = new ArrayList<>();
+						List<String> subject = new ArrayList<>();
+						List<String> description = new ArrayList<>();
+						List<String> image = new ArrayList<>();
+						
+						List<String> userBid = new ArrayList<>();
+						List<String> buyerUser = new ArrayList<>();
+						List<String> date = new ArrayList<>();
+					
+						%><ul class="books de"><h1>Your Watch List</h1></ul><%
+						while(rst9.next()){
+		
+							Id.add(rst9.getString("auctionID"));
+							title.add(rst9.getString("title"));
+						
+							edition.add(rst9.getString("edition"));
+							highestBid.add(rst9.getString("highestBid"));
+							author.add(rst9.getString("author"));
+							ISBN.add(rst9.getString("ISBN"));
+							quality.add(rst9.getString("quality"));
+							endDate.add(rst9.getString("endDate"));
+							subject.add(rst9.getString("subject"));
+							description.add(rst9.getString("description"));
+							image.add(rst9.getString("image"));	
+						
 						}
-					} else {
-						out.print("<font face=\"Century Gothic\" size=\"2\"><table class=\"table\" border=\"1\"><tr><th>Bid</th> <th>Date</th></tr>");
-						while(rst.next()){
+						
+						while(bidrst.next()){
 							
-							String colour = "green";
-
-							out.println("<td><font color=\"" + colour + "\">" + rst.getString(2) + "</font></td>"
-										+"<td><font color=\"" + colour + "\">" + rst.getString(3) + "</font></td>"
-										+ "</font></td></tr>");
+							buyerUser.add(bidrst.getString("buyerUserName"));
+							userBid.add(bidrst.getString("bidAmount"));
+							date.add(bidrst.getString("dates"));
+						}
+						
+						
+						
+						
+						%>	<ul class="books de"><%
+					for (int i=0; i<Id.size();i++){
 								
-						}			
-						}
-				}catch(SQLException ex){
-					out.println(ex);}
-				
+							
+						
+							%>
+						
+							
+							    	<table class="a">
+							    		<tr>
+								         	<th>
+								         	<center>	<div class="thumbnail"><img src="textbook.jpeg"></div></center>
+								         	</th>
+								       		<th><div class="main2">
+								       			<table> 
+								       				<tr> 
+								       					<th><center>
+								       						<table>
+								       						<tr> <ul class="books">   
+									       					 <mn><h2 class="font"><%out.println(title.get(i));%></h2></mn>
+									       					<mn><h2 class="font">Ed: <%out.println(edition.get(i));%></h2></mn>
+									       					<mn><h2 class="fontMoney">$<%out.println(highestBid.get(i));%></h2></mn>
+									       					</ul>
+															<tr></tr><tr>
+															  
+															<%if (sub==null){ %>	
+															<ul class="books"> 
+															<mn><p class="font">Author: <%out.println(author.get(i));%></p></mn>
+															<mn><p class="font">ISBN: <%out.println(ISBN.get(i));%></p></mn>
+								     						<mn><p class="font">Condition: <%out.println(quality.get(i));%>/5</p></mn>
+								     						<mn><p class="font">Ends: <%out.println(endDate.get(i));%></p></mn>
+								     						<%}else if (sub.equals("bidding")){%>
+								     						
+								     						<mn><center><tr><th><h2 class="font">User</h2></th></center>
+								     							<center><th><h2 class="font">Bid</h2></th></center>
+								     							<center><th><h2 class="font">Date</h2></th></center>
+								     						</tr><%for(int j=0;j<date.size();j++){ %>
+								     						<th><p class="font"><%out.println(buyerUser.get(i));%></p></th>
+															<th><p class="font"><%out.println(userBid.get(i));%></p></th>
+								     						<th><p class="font"><%out.println(date.get(i));%></p></th></mn>
+								     					
+								    							 <%} %>
+								     							
+								     							
+								     					<%	}%>
+								     					<%if (sub==null){%>	</ul><%} %>
+								     						</ul></tr>
+								     						</table></center>
+								     					</th> 
+								     				 </tr>
+								     				 <tr>
+								     				<th>
+								     				<%if (sub==null){ %>	
+								     				 		<center><article><p><%out.println(description.get(i));%></p></article></center>
+								     				 		<%}%>	
+								         			</th>
+								         			</tr><tr>	
+								         				<th><center>
+								         					<table> <tr><th> 
+																		<form method="get" action="account.jsp?&feature=selling&subFeature=old">
+																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >
+																		
+																		<input type="hidden" value="watching" name="feature" >
+																		<input type="hidden" value="bidding" name="sub" >
+																			<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
+																		<button type="submit" class="sideBarButton button2">See Bids</button></form>
+																	</th><th>
+																		<form method="get" action="bid.jsp">
+																			<input type="hidden" value="<%out.println(highestBid.get(i)); %>" name="startingPrice" >
+																		<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
+																		<button type="submit" class="sideBarButton button2">Bid</button></form>
+																	</th><th>
+																		<form method="get" action="delete.jsp">
+																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >
+																		<button type="submit" class="sideBarButton button2">Remove</button></form>
+																	</th></tr>
+															</table></center>
+														</th>
+													</tr>
+										</table></div>
+									</th>
+								</tr>
+							</table>
+							   	
+							   
+					
+							
+						
+							<%
+							
+						}		
+						%></ul></div><%
+						}catch(Exception ex){
+							out.println(ex);}
+						
+			
 	
 			 %>
 				<script>

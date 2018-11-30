@@ -66,12 +66,12 @@ public class PostAuction extends HttpServlet {
 					Date startDate= new Date(System.currentTimeMillis());
 
 	
-	Part picture = request.getPart("pic");
-	String photoName= getFileName(picture);
-	String savePath = "/Users/samuelpeters/git/304Project/304_Project/WebContent/images/" + File.separator + photoName;
-	File photoSaveDirectory = new File(savePath);
+	//Part picture = request.getPart("pic");
+	//String photoName= getFileName(picture);
+	//String savePath = "/Users/samuelpeters/git/304Project/304_Project/WebContent/images/" + File.separator + photoName;
+	//File photoSaveDirectory = new File(savePath);
 	
-	picture.write(savePath + File.separator);
+	//picture.write(savePath + File.separator);
 	
 
 	
@@ -164,12 +164,12 @@ public class PostAuction extends HttpServlet {
 					pstmt3.setString(10, description);
 					pstmt3.executeUpdate();
 				
-					sql = "INSERT INTO productImage VALUES (?,?) ";
-					PreparedStatement prst = con.prepareStatement(sql);
-					prst.setInt(1, auctionId);
-					prst.setString(2, savePath);
+					//sql = "INSERT INTO productImage VALUES (?,?) ";
+					//PreparedStatement prst = con.prepareStatement(sql);
+					//prst.setInt(1, auctionId);
+					//prst.setString(2, savePath);
 					
-					prst.executeUpdate();
+				//	prst.executeUpdate();
 				
 					
 				}
