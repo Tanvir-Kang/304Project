@@ -16,7 +16,6 @@ Zach's stupid scratchpad file
 </head>
 <body>
 	<%
-
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (java.lang.ClassNotFoundException e) {
@@ -28,8 +27,9 @@ Zach's stupid scratchpad file
 		String uid = ld.getUid();
 		String pw = ld.getPw();
 
+		//C:/Users/Zach/git/304Project/304_Project/WebContent/images/drawingText.jpg
 		Connection con = DriverManager.getConnection(url, uid, pw);
-		File imgFile = new File("FILL ME IN");
+		File imgFile = new File("C:/Users/Zach/git/304Project/304_Project/WebContent/images/drawingText.jpg");
 		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		FileInputStream fin = new FileInputStream(imgFile);
 		byte[] image = new byte[(int) imgFile.length()];
