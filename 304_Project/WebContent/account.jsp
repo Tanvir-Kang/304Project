@@ -539,7 +539,7 @@ left-margin:40px;
 						List<String> buyerUser = new ArrayList<>();
 						List<String> sellerUser = new ArrayList<>();
 					
-						%><ul class="books de"><h1>Your Watch List</h1></ul><%
+						%><ul class="books de"><h1>Auctions You've Won</h1></ul><%
 						while(rst99.next()){
 		
 							Id.add(rst99.getString("auctionID"));
@@ -580,23 +580,21 @@ left-margin:40px;
 								       					<th><center>
 								       						<table>
 								       						<tr> <ul class="books">   
-									       					 <mn><h2 class="font"><%out.println(title.get(i));%></h2></mn>
+									       					 <mn><h1 class="font"><%out.println(title.get(i));%></h1></mn>
 									       				
-									       					<mn><h2 class="fontMoney">Your Winning Bid: $<%out.println(highestBid.get(i));%></h2></mn>
+									       					
 									       					</ul>
 															<tr></tr><tr>
 															  
-															<%if (sub==null){ %>	
+															
 															<ul class="books"> 
 															<mn><p class="font">Author: <%out.println(author.get(i));%></p></mn>
 															<mn><p class="font">ISBN: <%out.println(ISBN.get(i));%></p></mn>
 								     						
 								     						
-								     						<%}else if (sub.equals("bidding")){%>
-								     						
-								     						<mn><center><tr><th><h2 class="font">User</h2></th></center>
-								     							<center><th><h2 class="font">Bid</h2></th></center>
-								     							<center><th><h2 class="font">Date</h2></th></center>
+								     					
+								     						<mn><h2 class="fontMoney">Your Winning Bid: $<%out.println(highestBid.get(i));%></h2></mn>
+								     					
 								     						</tr>
 								     						
 								     				
@@ -615,23 +613,12 @@ left-margin:40px;
 								         			</tr><tr>	
 								         				<th><center>
 								         					<table> <tr><th> 
-																		<form method="get" action="account.jsp?&feature=selling&subFeature=old">
-																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >
-																		
-																		<input type="hidden" value="watching" name="feature" >
-																		<input type="hidden" value="bidding" name="sub" >
+																		<form method="get" action="CheckoutUserID.jsp">
+																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >												
+																		<input type="hidden" value="<%out.println(sellerUser.get(i));%>" name="seller" >
+																		<input type="hidden" value="<%out.println(highestBid.get(i));%>" name="price" >
 																			<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
-																		<button type="submit" class="sideBarButton button2">See Bids</button></form>
-																	</th><th>
-																		<form method="get" action="bid.jsp">
-																			<input type="hidden" value="<%out.println(highestBid.get(i)); %>" name="startingPrice" >
-																		<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
-																		<button type="submit" class="sideBarButton button2">Bid</button></form>
-																	</th><th>
-																		<form method="get" action="delete.jsp">
-																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >
-																		<button type="submit" class="sideBarButton button2">Remove</button></form>
-																	</th></tr>
+																		<button type="submit" class="sideBarButton button2">Settle the Auction</button></form>
 															</table></center>
 														</th>
 													</tr>
@@ -646,7 +633,7 @@ left-margin:40px;
 						
 							<%
 							
-								     						}}	
+								     						}
 						%></ul></div><%
 						}catch(Exception ex){
 							out.println(ex);}
