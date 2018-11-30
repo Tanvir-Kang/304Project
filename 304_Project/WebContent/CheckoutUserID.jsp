@@ -2,7 +2,8 @@
 <%@ page import="java.sql.*,java.net.URLEncoder" %>
 <%@ page import ="java.text.*"%>
 <%@ page import ="java.util.ArrayList"%>
-
+<%@ page
+	import="java.sql.*, data.loginDetails, java.util.concurrent.TimeUnit"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -38,7 +39,39 @@ button {
 	
 
 //if (login==null){
+	String user = (String) session.getAttribute("authenticatedUser");
 	
+	String SQL4="DELETE FROM Book WHERE auctionID=?";	
+	String SQL3="DELETE FROM savedAuctions WHERE auctionID=?";		
+	String SQL2="DELETE FROM Bids WHERE auctionID=?";			
+	String SQL="DELETE FROM Auction WHERE auctionID=?";	
+	try 
+	{
+		
+		loginDetails ld = new loginDetails();
+		String url = ld.getUrl();
+		String uid = ld.getUid();
+		String pw = ld.getPw();
+		Connection con = DriverManager.getConnection(url, uid, pw);
+		
+		String ID = request.getParameter("auctionID").trim();
+		int id = Integer.parseInt(ID);
+		
+		PreparedStatement pstmt = con.prepareStatement(SQL4);
+		pstmt.setInt(1, id);	
+		pstmt.executeUpdate();
+		
+		pstmt = con.prepareStatement(SQL3);
+		pstmt.setInt(1, id);	
+		pstmt.executeUpdate();
+		
+		pstmt = con.prepareStatement(SQL2);
+		pstmt.setInt(1, id);	
+		pstmt.executeUpdate();
+	
+		pstmt = con.prepareStatement(SQL);
+		pstmt.setInt(1, id);	
+		pstmt.executeUpdate();
 	
 	DecimalFormat df = new DecimalFormat("#.##");
 	%>
@@ -55,7 +88,7 @@ button {
 
 <form method="get" action="account.jsp">
 		<table align="center">
-			<tr>
+			<tr><input type="hidden" value="bids" name="feature">
 				<td align="center" style="font-size: 25px;"></td>
 				<td align="center"><button type="submit">Pay</button></td>
 				
@@ -65,7 +98,8 @@ button {
 
 	<h2 align="center" style="font-size: 40px;">Check Out</h2>
 
-	<form method="get" action="auction.jsp">
+	<form method="get" action="account.jsp">
+	
 		<table align="center">
 			<tr>
 				<td align="center" style="font-size: 25px;">Customer ID:</td>
@@ -125,7 +159,9 @@ button {
 		</table>
 	</form>
 	
-	<%}
+	<%}}catch (SQLException ex) {
+		out.println(ex);}
+	
    %>
 			</tr>
 		</table>
