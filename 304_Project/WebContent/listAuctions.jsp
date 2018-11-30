@@ -411,9 +411,11 @@ boolean isGrid=true;
 if ("detailed".equals(request.getParameter("feature")))
 	isGrid=false;
 if (isGrid==true){
-for (i=0; i<auctionId.size();i++) {%>
+for (i=0; i<auctionId.size();i++) {
+	String imgsrc = "displayImage.jsp?auctionid=" + auctionId.get(i);
+%>
     <li>
-	          <center><div class="thumbnail"><img src="textbook.jpeg"></div></center>
+	          <center><div class="thumbnail"><img src= <%=imgsrc %> width="200" height="200"></div></center>
 	          <div class="boxP"><center><h4 class="font"><%out.println(title.get(i));%></h4></center></div>
 	          <center><p class="font">$<%out.println(highestBid.get(i));%></p></center>
 	          <center><table>
