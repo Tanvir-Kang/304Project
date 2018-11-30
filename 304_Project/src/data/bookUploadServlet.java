@@ -74,7 +74,7 @@ public class bookUploadServlet extends HttpServlet {
             // connects to the database
         	Connection con = DriverManager.getConnection(url, uid, pw);
         	
-        	String sql = "INSERT INTO Auction (sellerUserName,buyerUserName,startDate, endDate) VALUES (?,?,?,?)";
+        	String sql = "INSERT INTO Auction (sellerUserName,buyerUserName,startDate, endDate, highestBid) VALUES (?,?,?,?,?)";
 			// code provided by the lab was edited, the injected statement.RETURN_GENERATED_KEYS was turned into a PreparedStatement in the line below
 			PreparedStatement pstmt2 = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			// setting the queery values with the  submitted and executing the code
@@ -91,6 +91,7 @@ public class bookUploadServlet extends HttpServlet {
 			pstmt2.setString(2, user);
 			pstmt2.setDate(3, sqlStartDate);
 			pstmt2.setString(4, updatedEndDate);
+			pstmt2.setString(5, startPrice);
 			
 			
             // constructs SQL statement
