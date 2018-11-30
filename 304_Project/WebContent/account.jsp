@@ -270,7 +270,6 @@ left-margin:40px;
 }
 </style>
 <body>
-	
 
 	<div id ="sideBar">
 
@@ -282,7 +281,7 @@ left-margin:40px;
 						</form>
 						<form method="get" action="account.jsp">
 							<input type="hidden" value="bids" name="feature" >
-							<button type="submit" class="sideBarButton">My Bids</button>
+							<button type="submit" class="sideBarButton">Won Auctions</button>
 						</form>
 							<form method="get" action="account.jsp">
 							<input type="hidden" value="watching" name="feature" >
@@ -295,7 +294,7 @@ left-margin:40px;
 						</form>
 		
 								<form method="get" action="account.jsp">
-							
+							<input type="hidden" value="account" name="feature" >
 							<button type="submit" class="sideBarButton">Account Settings</button>
 						</form>
 							<form method="get" action="userReview.jsp">
@@ -314,7 +313,15 @@ left-margin:40px;
 	
 	
 	
-	<%	session = request.getSession(true);
+	<%	
+	// Making connection
+	loginDetails ld = new loginDetails();
+	String url = ld.getUrl();
+	String uid = ld.getUid();
+	String pw = ld.getPw();
+	Connection con = DriverManager.getConnection(url, uid, pw);
+	
+	session = request.getSession(true);
 		if (feature != null){
 			if(feature.equals("selling") && subFeature == null){
 					%><form method="get" action="account.jsp">
@@ -418,12 +425,6 @@ left-margin:40px;
 				
 				String auctionId = request.getParameter("auctionId");
 					
-				// Making connection
-					loginDetails ld = new loginDetails();
-					String url = ld.getUrl();
-					String uid = ld.getUid();
-					String pw = ld.getPw();
-					Connection con = DriverManager.getConnection(url, uid, pw);
 				
 					try{
 						
@@ -500,13 +501,7 @@ left-margin:40px;
 	
 			
 			String auctionId = request.getParameter("auctionId");
-				
-			// Making connection
-				loginDetails ld = new loginDetails();
-				String url = ld.getUrl();
-				String uid = ld.getUid();
-				String pw = ld.getPw();
-				Connection con = DriverManager.getConnection(url, uid, pw);
+
 			
 				try{
 					
@@ -656,12 +651,7 @@ left-margin:40px;
 			
 			String auctionId = request.getParameter("auctionId");
 				
-			// Making connection
-				loginDetails ld = new loginDetails();
-				String url = ld.getUrl();
-				String uid = ld.getUid();
-				String pw = ld.getPw();
-				Connection con = DriverManager.getConnection(url, uid, pw);
+
 			
 				try{
 					
@@ -839,10 +829,47 @@ left-margin:40px;
 		}else if (feature.equals("history")){
 			out.print("<p1>history</p1>");
 		}else if (feature.equals("account")){
-			out.print("<p1>account</p1>");
+			String SQL = "select firstName, lastName, email, phonenum, birthdate from webUser where userName = ?";
+			PreparedStatement pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, user);
+			ResultSet rst = pstmt.executeQuery();
+			rst.next();
+			String fname = rst.getString("firstName");
+			String lname = rst.getString("lastName");
+			String email = rst.getString("email");
+			String pnum = rst.getString("phonenum");
+			String bdate = rst.getString("birthdate");
+			%>
+			<h1 style="margin-left:20px">Your Account at a Glance</h1>
+			<p style="margin-left:20px"><b>Username:</b></p><%out.print("<p style='margin-left:20px'>" + user + "</p>"); %>
+			<p style="margin-left:20px"><b>First Name:</b></p><%out.print("<p style='margin-left:20px'>" + fname + "</p>"); %>
+			<p style="margin-left:20px"><b>Last Name:</b></p><%out.print("<p style='margin-left:20px'>" + lname + "</p>"); %>
+			<p style="margin-left:20px"><b>Email:</b></p><%out.print("<p style='margin-left:20px'>" + email + "</p>"); %>
+			<p style="margin-left:20px"><b>Phone Number:</b></p><%
+			if(pnum == null || pnum.isEmpty())
+				out.print("<p style='margin-left:20px'>" + "No phone number on file." + "</p>");
+			else
+				out.print("<p style='margin-left:20px'>" + pnum + "</p>");
+				
+			%>
+			<p style="margin-left:20px"><b>Birth Date:</b></p><%
+			if(bdate.equals("1900-01-01"))
+				out.print("<p style='margin-left:20px'>" + "No birthdate on file." + "</p>");
+				else
+			out.print("<p style='margin-left:20px'>" + bdate + "</p>"); %>
+			<p></p>
+			<p></p>
+			
+			
+			
+			<%
+			rst.close();
+			pstmt.close();
+			
 		} else 
 			out.print("");
 		}
+		con.close();
 	%>	
 	</div>
 </body>
