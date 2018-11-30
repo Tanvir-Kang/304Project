@@ -22,6 +22,8 @@ SAM -->
 <body>
 <%
 String auctionId = request.getParameter("auctionId");
+int id = Integer.parseInt(auctionId.trim());
+
 String user = (String) session.getAttribute("authenticatedUser");
 if (user == null)
 	response.sendRedirect("login.jsp");
@@ -33,10 +35,11 @@ session = request.getSession(true);
 	String uid = ld.getUid();
 	String pw = ld.getPw();
 	Connection con = DriverManager.getConnection(url, uid, pw);
+	
 	try{
 	String SQL = "INSERT INTO savedAuctions (auctionID, buyerUserName) VALUES (?,?)";
 	PreparedStatement pstmt = con.prepareStatement(SQL);
-	pstmt.setString(1, auctionId);
+	pstmt.setInt(1, id);
 	pstmt.setString(2, user);
 	
 	pstmt.executeUpdate();
@@ -58,12 +61,7 @@ session = request.getSession(true);
 
 
  %>
-	<script>
-		setTimeout("account.jsp?feature=selling");
-	</script>
-	<%
-		
+	<meta http-equiv="Refresh" content="2;url=account.jsp?feature=watching">
 	
-	%>
 </body>
 </html>
