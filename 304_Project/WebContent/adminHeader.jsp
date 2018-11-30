@@ -29,6 +29,8 @@ nav {
 	height: 40px;
 	background-color: #000000;
 	overflow: hidden;
+		padding-bottom: 11px;
+	
 }
 .nohover {
 	

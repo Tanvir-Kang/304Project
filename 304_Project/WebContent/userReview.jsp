@@ -15,11 +15,7 @@ TANVIR-->
 	<jsp:include page="header.jsp" />
 
 </div>
-<p>Select one of your previous orders to leave a review about the
-	seller
-<p>
-<p>Feel free to add in information about the condition of the item
-	or any complaints you may have</p>
+
 
 <%
 	Object authUser = session.getAttribute("authenticatedUser");
@@ -49,9 +45,12 @@ TANVIR-->
 		rst = pst.executeQuery();
 
 		if (rst.next() == false) {
-			out.println("<p> No user order information</p>");
+			out.println("<p>You have not won any auctions</p>");
 		} else {
 			rst.beforeFirst();
+			out.println("<p>Select one of your previous orders to leave a review about the seller </p>");
+			out.println("<p>Feel free to add in information about the condition of the item or any complaints you may have</p>");
+
 			out.println("<center><table cellpadding='10' style='width=100%'>"
 					+ "<tr><th align='left'>Auction ID</th>" + "<th align='left'>Seller</th>"
 					+ "<th align='left'>Your winning bid </th>" + "<th align='left'>Book title</th>"

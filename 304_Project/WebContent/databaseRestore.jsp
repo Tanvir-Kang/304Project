@@ -22,7 +22,7 @@ Tanvir
 	</nav>
 <%
 restoreDatabase attempt1 = new restoreDatabase();
-String fileName = "C:/Users/Customer/git/304Project/304_Project/Data/order_sql.ddl";
+String fileName = "C:/Users/tanvi/git/304Project/304_Project/Data/order_sql.ddl";
 try{
 	attempt1.loadData(fileName);
 
