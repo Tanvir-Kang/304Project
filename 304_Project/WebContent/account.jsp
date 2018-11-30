@@ -335,7 +335,7 @@ left-margin:40px;
 			if (session.getAttribute("repostingBooks") != null)
 				out.println("<p align='center' style='color:red;'>" + session.getAttribute("repostingBooks").toString() + "</p>");
 		%><h1>Selling</h1>
-			<form action="PostAuction" method= "post" enctype = "multipart/form-data">
+			<form action="uploadServlet" method= "post" enctype = "multipart/form-data">
 					<input type="hidden" name="user" value ="<%out.print(user);%>">
 					Book Title <br>
 					<input type="text" name="title" placeholder="Book Title" required> <br>
