@@ -33,10 +33,10 @@ body {
 	font-size: 40px;
 	font-weight: bolder;
 }
-.header img {
-  width: 250px;
-  height: 250px;
 
+.header img {
+	width: 250px;
+	height: 250px;
 }
 
 nav {
@@ -89,7 +89,7 @@ nav .search-container button {
 	padding: 6px 10px;
 	margin-top: 4px;
 	margin-bottom: 5px;
-	background: #e7976f;
+	background: #e88956;
 	font-size: 17px;
 	border: none;
 	cursor: pointer;
@@ -168,6 +168,7 @@ nav .search-container button:hover {
 
 		<%
 			}
+			if (!uri.equals("/304_Project/listAuctions.jsp")) {
 		%>
 		<div id="inner" class="search-container">
 			<form action="/304_Project/listAuctions.jsp">
@@ -176,6 +177,9 @@ nav .search-container button:hover {
 				<button type="submit">Submit</button>
 			</form>
 		</div>
+		<%
+			}
+		%>
 	</nav>
 
 </body>

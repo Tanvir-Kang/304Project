@@ -7,23 +7,17 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+
 <meta charset="ISO-8859-1">
 <head>
 <title> Submit</title>
 </head>
+<div id="header">
+	<jsp:include page="header.jsp" />
+
+</div>
 <body>
 <%
-/*CREATE TABLE Complaint(
-complaintID  int NOT NULL,
-auctionID   int ,
-sellerUserName  VARCHAR(30),
-buyerUserName VARCHAR(30),
-description   VARCHAR(150),
-dateSubmitted   DATE,
-PRIMARY KEY (complaintID),
-CONSTRAINT FK_Complaint2_Auction2 FOREIGN KEY (auctionID)  REFERENCES Auction(auctionID)
-);*/
 
 //getting buyer
 	Object authUser = session.getAttribute("authenticatedUser");
@@ -37,7 +31,7 @@ CONSTRAINT FK_Complaint2_Auction2 FOREIGN KEY (auctionID)  REFERENCES Auction(au
 //Getting txt review
 	String review = request.getParameter("inComplaint");
 //I am going to leave date null, just need all PK to get complaint id generated and will use key from RS	
-	out.println("<p>"+ sellerUserName +auctionID + review +  "</p>");
+
 
 	// Making connection
 	loginDetails ld = new loginDetails();

@@ -111,14 +111,7 @@ public class bookUploadServlet extends HttpServlet {
 
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("Select * from Auction");
-			while (rs.next()) {
-				System.out.println(" aID " + rs.getInt("auctionId"));
-				System.out.println(" seller " + rs.getString("sellerUserName"));
-				System.out.println(" sDate " + rs.getString("startDate"));
-				System.out.print(" edate " + rs.getString("endDate"));
-			}
 			request.setAttribute("repostingBooks", "You're book's auction is now open!");
-			System.out.println("<h1>You're book's auction is now open! </h1>");
 			String SQL3 = "INSERT INTO Book VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pstmt3 = con.prepareStatement(SQL3);
 			pstmt3.setString(1, isbn);
@@ -143,8 +136,9 @@ public class bookUploadServlet extends HttpServlet {
  
             // sends the statement to the database server
             int row = pstmt3.executeUpdate();
+            con.close();
             if (row > 0) {
-                message = "File uploaded and saved into database";
+                message = "Your book has been posted for sale! Redirecting to account page...";
             }
         } catch (SQLException ex) {
             message = "ERROR: " + ex.getMessage();
