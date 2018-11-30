@@ -69,5 +69,6 @@ catch (SQLException ex) {
 	out.println(ex);
 }
 %>
+<b>User review submitted! <br> Press home on header to return.</b>
 </body>
 </html>
