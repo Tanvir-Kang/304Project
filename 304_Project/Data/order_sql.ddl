@@ -6,6 +6,8 @@ ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_Auction;
 ALTER TABLE PaymentInfo DROP CONSTRAINT FK_PaymentInfo_webUser;
 ALTER TABLE ProductImage DROP CONSTRAINT FK_Photo_Auction;
 
+DROP TABLE webUser;
+DROP TABLE savedAuctions;
 DROP TABLE Book;
 DROP TABLE Complaint;
 DROP TABLE Bids;
@@ -17,17 +19,10 @@ DROP TABLE Bitcoin;
 DROP TABLE Company;
 DROP TABLE PaymentInfo;
 DROP TABLE webUser;
+
 DROP TABLE savedAuctions;
 DROP TABLE Auction;
-DROP TABLE productImage;
 
-CREATE TABLE ProductImage (
-	photoID	int NOT NULL, 
-	path	varchar(255)
-	PRIMARY KEY (photoID),
-	CONSTRAINT FK_Photo_Auction FOREIGN KEY (photoID)  REFERENCES Auction(auctionID),
-	
-);
 
 CREATE TABLE webUser(
 	userName  VARCHAR(30)   NOT  NULL,
@@ -185,16 +180,16 @@ INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','bill
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
 
 DECLARE @auctionID int
-INSERT INTO Auction  VALUES ('billingaddress',NULL,NULL,'700.50','JeffDaniels12','HelenfromHell',1)
+INSERT INTO Auction  VALUES ('billingaddress','2018-11-28 19:47:46.0','2018-12-01 00:00:00.0','49.99','JeffDaniels12','HelenfromHell',1)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'The Greatest Book Of All Time','JeffDaniels12','Computer Science','Emily Bronson',8,4,110.99,'A spokey ghost story required for ENG 999', NULL);
 
 DECLARE @auctionID int
-INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'100.50','HelenfromHell','JeffDaniels12',2)
+INSERT INTO Auction VALUES ('billingaddress2','2018-11-28 19:47:46.0','2018-12-01 00:00:00.0','10.00','HelenfromHell','JeffDaniels12',2)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('987345984780100',@auctionID,'Biology','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);
+INSERT INTO Book VALUES ('987345984780100',@auctionID,'The Theory Of Evolution','JeffDaniels12','Computer Science','Charles Darwin',8,4,110.00,'Required Reading for CHEM 321', NULL);
 
 DECLARE @auctionID int
-INSERT INTO Auction VALUES ('billingaddress2',NULL,NULL,'300.50','HelenfromHell','JeffDaniels12',3)
+INSERT INTO Auction VALUES ('billingaddress2','2018-11-28 19:47:46.0','2018-12-02 00:00:00.0','30.00','HelenfromHell','JeffDaniels12',3)
 SELECT @auctionID = @@IDENTITY
-INSERT INTO Book VALUES ('145678578543456',@auctionID,'Computer Science','JeffDaniels12','Computer Science','John',8,4,110.99,NULL, NULL);
+INSERT INTO Book VALUES ('145678578543456',@auctionID,'How To Teach Cosc304','JeffDaniels12','Computer Science','J.J. Jack Johnson ',8,4,110.99,'A fun book covering all you may want to know about databases. I sure learned a lot. ', NULL);

@@ -25,7 +25,7 @@ body {
 .header {
 	padding: 40px;
 	text-align: center;
-	background: #905533;
+	background: #999999;
 	color: white;
 }
 
