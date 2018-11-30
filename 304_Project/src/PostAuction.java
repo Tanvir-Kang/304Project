@@ -149,8 +149,8 @@ public class PostAuction extends HttpServlet {
 							out.print(" edate " + rs.getString("endDate"));
 							}
 						
-					out.println("<h1>You're book's auction is now open! </h1>");
-					String SQL3 = "INSERT INTO Book VALUES (?,?,?,?,?,?,?,?,?,?)";
+			
+					String SQL3 = "INSERT INTO Book (ISBN,auctionID,title,sellerUserName,subject,author,edition,quality,startPrice,description) VALUES (?,?,?,?,?,?,?,?,?,?)";
 					PreparedStatement pstmt3 = con.prepareStatement(SQL3);
 					pstmt3.setString(1, isbn);
 					pstmt3.setInt(2, auctionId);
@@ -162,8 +162,11 @@ public class PostAuction extends HttpServlet {
 					pstmt3.setString(8, quality);
 					pstmt3.setString(9, startPrice);
 					pstmt3.setString(10, description);
+					
 					pstmt3.executeUpdate();
-				
+					
+					out.println("<h1>You're book's auction is now open! </h1>");
+					response.sendRedirect("listAuctions.jsp");
 					//sql = "INSERT INTO productImage VALUES (?,?) ";
 					//PreparedStatement prst = con.prepareStatement(sql);
 					//prst.setInt(1, auctionId);

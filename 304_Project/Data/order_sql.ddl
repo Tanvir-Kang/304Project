@@ -4,10 +4,11 @@ ALTER TABLE Auction DROP CONSTRAINT FK_Auction_Company;
 ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_User;
 ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_Auction;
 ALTER TABLE PaymentInfo DROP CONSTRAINT FK_PaymentInfo_webUser;
-ALTER TABLE ProductImage DROP CONSTRAINT FK_Photo_Auction;
+ALTER TABLE PaymentInfo DROP CONSTRAINT FK_PaymentInfo_webUser;
+ALTER TABLE savedAuctions DROP CONSTRAINT FK_savedAuctions_User;
+ALTER TABLE ShippingAddress DROP CONSTRAINT FK_ShippingAddress_webUser;
 
-DROP TABLE webUser;
-DROP TABLE savedAuctions;
+DROP TABLE ProductImage;
 DROP TABLE Book;
 DROP TABLE Complaint;
 DROP TABLE Bids;
@@ -40,7 +41,7 @@ CREATE TABLE PaymentInfo(
 	buyerUserName  VARCHAR(30)    NOT  NULL,
 	billingAddress   VARCHAR(50) NOT  NULL,
 	PRIMARY KEY (billingAddress,buyerUserName),
-	CONSTRAINT FK_PaymentInfo_webUser FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName) ON DELETE NO action ON UPDATE CASCADE
+	CONSTRAINT FK_PaymentInfo_webUser FOREIGN KEY (buyerUserName)  REFERENCES  webUser(userName) ON DELETE NO action ON UPDATE NO action
 );
 
 CREATE TABLE Company(
@@ -172,9 +173,11 @@ INSERT INTO ShippingAddress VALUES ('JeffDaniels12', 'postal', 'street', 'city',
 INSERT INTO Company VALUES (1,'70.05');
 INSERT INTO Company VALUES (2,'10.05');
 INSERT INTO Company VALUES (3,'90.05');
+INSERT INTO Company VALUES (4,'90.05');
 
 INSERT INTO PaymentInfo VALUES ('HelenfromHell','billingaddress');
 INSERT INTO PaymentInfo VALUES ('JeffDaniels12','billingaddress2');
+INSERT INTO PaymentInfo VALUES ('user1','10 Fir Court, V1X2B8, Kelowna BC, Canada');
 
 INSERT INTO Paypal VALUES ('helenG@hotmail.com','paypalpw','HelenfromHell','billingaddress');
 INSERT INTO Paypal VALUES ('jeffyD@hotmail.com','paypalpw','JeffDaniels12','billingaddress2');
@@ -193,3 +196,9 @@ DECLARE @auctionID int
 INSERT INTO Auction VALUES ('billingaddress2','2018-11-28 19:47:46.0','2018-12-02 00:00:00.0','30.00','HelenfromHell','JeffDaniels12',3)
 SELECT @auctionID = @@IDENTITY
 INSERT INTO Book VALUES ('145678578543456',@auctionID,'How To Teach Cosc304','JeffDaniels12','Computer Science','J.J. Jack Johnson ',8,4,110.99,'A fun book covering all you may want to know about databases. I sure learned a lot. ', NULL);
+
+DECLARE @auctionID int
+INSERT INTO Auction VALUES ('10 Fir Court, V1X2B8, Kelowna BC, Canada','2018-11-26 19:47:46.0','2018-11-28 00:00:00.0','45.00','HelenfromHell','user1',4)
+SELECT @auctionID = @@IDENTITY
+INSERT INTO Book VALUES ('1456785785',@auctionID,'Intro To Stats.','JeffDaniels12','Mathematics','Maria Von. Stats',8,4,45.00,'A fun book covering all you may want to know about databases. I sure learned a lot. ', NULL);
+
