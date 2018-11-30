@@ -163,7 +163,7 @@ thumbnail img {
 	<div id="header">
 		<jsp:include page="header.jsp" />
 	</div>
-	<center><h2>Search for the books</h2><center>
+	<center><h2>Search for a Book</h2><center>
 <center>
 <form method="get" action="listAuctions.jsp" id="form2">
   <select size="1" name="subject" class="sideBarButton" required>   
@@ -221,10 +221,10 @@ thumbnail img {
   <option>World Literature</option>
   </select>
   </form>
- <button value="Submit" form="form2" class = "sideBarButton">Search by subject</button>
+ <button value="Submit" form="form2" class = "sideBarButton" style = "background-color:#e88956">Search by Subject</button>
 <p></p>
   <form method="get" action="listAuctions.jsp" id="form1">
-  <input type="text" name="search" size="50" placeholder ="Search by..." class="sideBarButton">
+  <input type="text" name="search" size="50" placeholder ="Search for anything..." class="sideBarButton">
   <select size="1" name="input" class="sideBarButton" required>
   <option>Title</option>
   <option>ISBN</option>
@@ -232,7 +232,7 @@ thumbnail img {
    </select>
 
 </form>
-  <button form="form1" value="submit" class = "sideBarButton">Submit</button></center>
+  <button form="form1" value="submit" class = "sideBarButton" style = "background-color:#e88956">Search by Title/ISBN/Author</button></center>
 
 <%
 // Colors for different item categories

@@ -278,20 +278,20 @@ left-margin:40px;
 		<div id ="sideList">
 						<form method="get" action="account.jsp">
 							<input type="hidden" value="selling" name="feature" >
-							<button type="submit" class="sideBarButton">Your Listings</button>
+							<button type="submit" class="sideBarButton">My Auctions</button>
 						</form>
 						<form method="get" action="account.jsp">
 							<input type="hidden" value="bids" name="feature" >
-							<button type="submit" class="sideBarButton">Bids</button>
+							<button type="submit" class="sideBarButton">My Bids</button>
 						</form>
 							<form method="get" action="account.jsp">
 							<input type="hidden" value="watching" name="feature" >
-							<button type="submit" class="sideBarButton">Watching</button>
+							<button type="submit" class="sideBarButton">Watch List</button>
 						</form>
 							
 							<form method="get" action="listAuctions.jsp">
 							
-							<button type="submit" class="sideBarButton">Auctions</button>
+							<button type="submit" class="sideBarButton">Search</button>
 						</form>
 		
 								<form method="get" action="account.jsp">
@@ -300,7 +300,7 @@ left-margin:40px;
 						</form>
 							<form method="get" action="userReview.jsp">
 							
-							<button type="submit" class="sideBarButton">User Reviews</button>
+							<button type="submit" class="sideBarButton">Leave a Review</button>
 						</form>
 							<form method="get" action="homepage.jsp">
 							<button type="submit" class="sideBarButton">Home</button>
@@ -320,13 +320,13 @@ left-margin:40px;
 					%><form method="get" action="account.jsp">
 						<input type="hidden" value="selling" name="feature" >
 						<input type="hidden" value="new" name="subFeature" >
-						<button type="submit" class="sideBarButton">Add a book for Auction</button>
+						<button type="submit" class="sideBarButton">Post a Book for Sale</button>
 					</form>
 					
 					<form method="get" action="account.jsp">
 						<input type="hidden" value="selling" name="feature" >
 						<input type="hidden" value="old" name="subFeature" >
-						<button type="submit" class="sideBarButton">Your Books up for auction</button>
+						<button type="submit" class="sideBarButton">Active Auctions</button>
 					</form>
 					<%
 			}if(subFeature!= null){
@@ -334,25 +334,26 @@ left-margin:40px;
 				
 			if (session.getAttribute("repostingBooks") != null)
 				out.println("<p align='center' style='color:red;'>" + session.getAttribute("repostingBooks").toString() + "</p>");
-		%><h1>Selling</h1>
-			<form action="uploadServlet" method= "post" enctype = "multipart/form-data">
-					<input type="hidden" name="user" value ="<%out.print(user);%>">
-					Book Title <br>
-					<input type="text" name="title" placeholder="Book Title" required> <br>
-					ISBN <br>
-					<input type="text" name="isbn" placeholder="ISBN: 978-3-16-148410-0" pattern="[0-9].{10}" required> <br>
-					Author <br>
-					<input type="text" name="author" placeholder="Author" maxlength="100" required> <br>
-					edition <br>
-					<input type="number" name="edition" placeholder="" max="50" min ="1" required> <br>
-					  Quality(out of 5 stars, where 5 is excellent and 0 is terrible) <br>
-					<input type="number" name="quality" placeholder="0-5 stars" max="5" min ="0" step="1" required> <br>
-					 Starting Price <br>
-					<input type="number" name="startPrice" placeholder="" max="300" min ="0" step="1" required> <br>
-					 Length of Auction <br>
-					<input type="number" name="endDate" placeholder="One Week Limit" max="7" min ="1" step="1" size = "15" required> <br>
-					Description of the Book <br>
-					<input type="text" name="description" placeholder="150 character limit" maxlength="150" size ="150"> <br>
+		%><h1 style="margin-left: 20px;">Enter Book Details</h1>
+			<form action="uploadServlet" method= "post" enctype = "multipart/form-data" style="margin-left: 20px;">
+					<p><input type="hidden" name="user" value ="<%out.print(user);%>"></p>
+					Book Title
+					<p><input type="text" name="title" placeholder="Book Title" required></p>
+					ISBN
+					<p><input type="text" name="isbn" placeholder="ISBN: 978-3-16-148410-0" pattern="[0-9].{10}" required></p>
+					Author 
+					<p><input type="text" name="author" maxlength="100" required> </p>
+					Edition 
+					<p><input type="number" name="edition" placeholder="" max="50" min ="1" required></p>
+					Quality(out of 5, where 5 is excellent and 0 is terrible)
+					<p><input type="number" name="quality" placeholder="0-5 stars" max="5" min ="0" step="1" required></p>
+					 Starting Price 
+					<p><input type="number" name="startPrice" placeholder="" max="300" min ="0" step="1" required></p>
+					Auction Length
+					<p><input type="number" name="endDate" placeholder="One Week Limit" max="7" min ="1" step="1" size = "15" required></p>
+					Brief description of the book and condition
+					<p><input type="text" name="description" placeholder="150 character limit" maxlength="150" size ="150"></p>
+					Subject
 					  <p align="left">
 					
 					  <select size="1" name="subject" required>
@@ -405,12 +406,12 @@ left-margin:40px;
 						  <option>Statistics</option>
 						  <option>Theatre</option>
 						  <option>World Literature</option>
-		 			</select> <br>
-		 			Upload a Book Cover <br>
+		 			</select></p>
+		 			Upload an Image of the Book
 		 			
-		 			<input type="file" name="pic" accept="image/*"> <br>
+		 			<p><input type="file" name="pic" accept="image/*"></p>
 		  			
-		 			<input type="submit" value="Start Your Auction">
+		 			<p><input type="submit" value="Start Your Auction"></p>
  			</form> 	 
 		<%	
 			} else if (subFeature.equals("old")){

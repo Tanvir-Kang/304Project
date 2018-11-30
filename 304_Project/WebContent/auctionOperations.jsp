@@ -82,7 +82,7 @@ TANVIR-->
 		else{
 			//reset RS
 			resultAuctions.beforeFirst();
-			out.println("<br><u>To edit an entry simply click the ISBN</u>");
+			out.println("<br><u>To edit an auction click the ISBN</u>");
 			out.println("<br><center><b><u>All Books Listed</u></b>");
 			out.println("<table cellpadding='5'>" + "<tr>"+"<th align='left'>ISBN</th>"  + "<th align='left'>Auction ID</th>"+ "<th align='left'>Title</th>" + "<th align='left'>Seller</th>"+"<th align='left'>Subject</th>");
 			out.println("<th align='left'>Author</th>"+"<th align='left'>Edition</th>"+"<th align='left'>Quality</th>"+"<th align='left'>Start Price</th>"+"<th align='left'>Description</th>"+"</tr>");
