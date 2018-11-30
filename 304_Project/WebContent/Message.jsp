@@ -11,5 +11,8 @@
     <center>
         <h3><%=request.getAttribute("Message")%></h3>
     </center>
+    	<script>
+		setTimeout("document.location.href='account.jsp'", 5000);
+	</script>
 </body>
 </html>

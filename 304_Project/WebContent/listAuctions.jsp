@@ -440,12 +440,20 @@ for (i=0; i<auctionId.size();i++) {
   <%} %></ul>
  <ul>
   <%}else if (isGrid!=true){ // loop ends here for s
-	  for (i=0; i<auctionId.size(); i++) {%>
+	  for (i=0; i<auctionId.size(); i++) {
+		  String imgsrc;
+			if(image.get(i) == null || image.get(i).isEmpty())
+			imgsrc = "textbook.jpeg";
+			else
+			imgsrc = "displayImage.jsp?auctionid=" + auctionId.get(i);
+	  
+	  
+	  %>
 	<de>
     	<table class="a">
     		<tr>
 	         	<th>
-	         		<div class="thumbnail"><img src="textbook.jpeg"></div>
+	         		<div class="thumbnail"><img src=<%=imgsrc %> width="200" height="200"></div>
 	         	</th>
 	       		<th><div class="main2">
 	       			<table> 

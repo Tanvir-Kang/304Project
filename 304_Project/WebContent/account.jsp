@@ -563,7 +563,11 @@ left-margin:40px;
 						
 						%>	<ul class="books de"><%
 					for (int i=0; i<Id.size();i++){
-								
+						String imgsrc;
+						if(image.get(i) == null || image.get(i).isEmpty())
+						imgsrc = "textbook.jpeg";
+						else
+						imgsrc = "displayImage.jsp?auctionid=" + Id.get(i);
 							
 						
 							%>
@@ -572,7 +576,7 @@ left-margin:40px;
 							    	<table class="a">
 							    		<tr>
 								         	<th>
-								         	<center>	<div class="thumbnail"><img src="textbook.jpeg"></div></center>
+								         	<center>	<div class="thumbnail"><img src=<%=imgsrc %> width="200" height="200"></div></center>
 								         	</th>
 								       		<th><div class="main2">
 								       			<table> 
@@ -727,7 +731,11 @@ left-margin:40px;
 						
 						%>	<ul class="books de"><%
 					for (int i=0; i<Id.size();i++){
-								
+						String imgsrc;
+						if(image.get(i) == null || image.get(i).isEmpty())
+						imgsrc = "textbook.jpeg";
+						else
+						imgsrc = "displayImage.jsp?auctionid=" + Id.get(i);	
 							
 						
 							%>
@@ -736,7 +744,7 @@ left-margin:40px;
 							    	<table class="a">
 							    		<tr>
 								         	<th>
-								         	<center>	<div class="thumbnail"><img src="textbook.jpeg"></div></center>
+								         	<center>	<div class="thumbnail"><img src=<%=imgsrc %> width="200" height="200"></div></center>
 								         	</th>
 								       		<th><div class="main2">
 								       			<table> 
