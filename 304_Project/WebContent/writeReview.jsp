@@ -42,8 +42,12 @@ TANVIR-->
 			out.println("ClassNotFoundException: " + e);
 		}
 	%>
-
+<%
+session.setAttribute("auctionid", auction);
+session.setAttribute("seller",sellerUserName);
+%>
 	<%
+
 		PreparedStatement pst = null;
 		ResultSet rst = null;
 		try (Connection con = DriverManager.getConnection(url, uid, pw);) {
@@ -56,7 +60,7 @@ TANVIR-->
 
 				out.println("<p> Write a review or complaint about: " + sellerUserName + "</p>");
 	%>
-	<form action="writeReview.jsp" method="POST">
+	<form action="textEntryReview.jsp" method="POST">
 		(150 Character limit)<br>
 		<textarea name="inComplaint" cols="40" rows="5"></textarea>
 		<br> <br> <input type="submit" value="Submit form">
