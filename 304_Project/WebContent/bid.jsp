@@ -78,14 +78,18 @@ Double minBid = Double.parseDouble(startingPrice) + 1.00;
 	pstmt.setString(4, bidTime );
 	pstmt.executeUpdate();
 	
-	String SQL4 = "SELECT buyerUserName from PaymentInfo WHERE buyerUserName= ? ";
+	String add = null;
+	String SQL4 = "SELECT buyerUserName, billingAddress from PaymentInfo WHERE buyerUserName= ? ";
 	PreparedStatement pstmt4 = con.prepareStatement(SQL4);
 	pstmt4.setString(1, user);
 	ResultSet rst = pstmt4.executeQuery();
 	
+
+	
 	for (;;){
-		if (rst.next())
-			break;
+		if (rst.next()){
+			add=rst.getString("billingAddress");
+			break;}
 	String SQL3 = "INSERT INTO PaymentInfo VALUES (?,'null');";
 	PreparedStatement pstmt3 = con.prepareStatement(SQL3);
 	pstmt3.setString(1, user);
@@ -93,12 +97,12 @@ Double minBid = Double.parseDouble(startingPrice) + 1.00;
 	
 
 	
-	String SQL2 = "UPDATE Auction SET highestBid= ?,buyerUserName=?, billingAddress=? WHERE Auction.auctionID = ?";
+	String SQL2 = "UPDATE Auction SET highestBid= ?,buyerUserName=?, billingAddress=?  WHERE Auction.auctionID = ?";
 	PreparedStatement pstmt2 = con.prepareStatement(SQL2);
 	pstmt2.setString(2, user);
 	pstmt2.setDouble(1, Bid);
 	pstmt2.setDouble(4, id);
-	pstmt2.setString(3,"null");
+	pstmt2.setString(3,add);
 	pstmt2.executeUpdate();
 	
 		%>You've Submitted A Bid<% 
