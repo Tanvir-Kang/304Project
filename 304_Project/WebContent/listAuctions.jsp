@@ -427,6 +427,7 @@ for (i=0; i<auctionId.size();i++) {
 <form method="get" action="bid.jsp">
 	<input type="hidden" value="<%out.println(auctionId.get(i));%>" name="auctionId" >
 	<input type="hidden" value="<%out.println(highestBid.get(i));%>" name="startingPrice" >
+		<input type="hidden" value="<%out.println(title.get(i)); %>" name="title" >
 	<button type="submit" class="sideBarButton button2">Bid</button>
 </form>
 </th><th>
@@ -486,6 +487,7 @@ for (i=0; i<auctionId.size();i++) {
 								<form method="get" action="bid.jsp">
 											<input type="hidden" value="<%out.println(auctionId.get(i));%>" name="auctionId" >
 											<input type="hidden" value="<%out.println(highestBid.get(i));%>" name="startingPrice" >
+											<input type="hidden" value="<%out.println(title.get(i)); %>" name="title" >
 											<button type="submit" class="sideBarButton button2">Bid</button>
 										</form>
 										</th><th>

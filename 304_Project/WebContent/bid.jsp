@@ -47,10 +47,10 @@ Double minBid = Double.parseDouble(startingPrice) + 1.00;
 
 %>
 
-	<h1>Bid on  <%out.print("'" +title + "'");%></h1>
+	<h1>Bid on  <%out.print("'" + title + "'");%></h1>
 			<form method= "get" action="bid.jsp">
 		
-			<input type="number" name="value" step="0.01" placeholder="Min: <%out.print(minBid);%>" min="<%out.print(minBid);%>"  required> 
+			<input type="number" name="value" step="0.01" placeholder="min=<%out.print(minBid);%>" min="<%out.print(minBid);%>" required> 
 			<input type ="hidden" name = "auctionId" value="<%out.print(id);%>">
 			<input type ="hidden" name = "startingPrice" value="<%out.print(minBid);%>">
 			<input type ="hidden" name = "title" value="<%out.print(title);%>">
@@ -60,7 +60,7 @@ Double minBid = Double.parseDouble(startingPrice) + 1.00;
 <%
 
 }else if (bidValue !=null ){
-	SimpleDateFormat s = new SimpleDateFormat("yyyy/MM/dd");
+	SimpleDateFormat s = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 	Calendar cal = Calendar.getInstance();
 	String bidTime = s.format(cal.getTime()); 
 // Making connection

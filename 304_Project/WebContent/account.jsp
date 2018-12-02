@@ -28,7 +28,7 @@
 </head>
 <%String feature = request.getParameter("feature"); 
 String sub = request.getParameter("sub"); 
-
+String subw = request.getParameter("subw");
 	String subFeature = request.getParameter("subFeature");%>
 
 	<%@ include file="auth.jsp"%>
@@ -319,6 +319,13 @@ left-margin:40px;
 	String url = ld.getUrl();
 	String uid = ld.getUid();
 	String pw = ld.getPw();
+	try {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	} catch (java.lang.ClassNotFoundException e) {
+		
+        e.printStackTrace();
+	}
+	
 	Connection con = DriverManager.getConnection(url, uid, pw);
 	
 	session = request.getSession(true);
@@ -424,10 +431,10 @@ left-margin:40px;
 			} else if (subFeature.equals("old")){
 				
 				String auctionId = request.getParameter("auctionId");
-					
+				 
 				
 					try{
-						
+					
 						String SQL= null;
 						String value=null;
 						if (auctionId ==null){
@@ -646,7 +653,7 @@ left-margin:40px;
 				</script>
 				<%
 		
-		}else if ((feature.equals("watching")) || sub != null){
+		}  else if ((feature.equals("watching")) || ((feature.equals("watching")) && (subw.equals("bidding")))){
 			
 			
 			String auctionId = request.getParameter("auctionId");
@@ -748,22 +755,22 @@ left-margin:40px;
 									       					<mn><h2 class="fontMoney">$<%out.println(highestBid.get(i));%></h2></mn>
 									       					</ul>
 															<tr></tr><tr>
-															  
-															<%if (sub==null){ %>	
+															 
+															<%   if (subw==null){ %>	
 															<ul class="books"> 
 															<mn><p class="font">Author: <%out.println(author.get(i));%></p></mn>
 															<mn><p class="font">ISBN: <%out.println(ISBN.get(i));%></p></mn>
 								     						<mn><p class="font">Condition: <%out.println(quality.get(i));%>/5</p></mn>
 								     						<mn><p class="font">Ends: <%out.println(endDate.get(i));%></p></mn>
-								     						<%}else if (sub.equals("bidding")){%>
-								     						
+								     						<%}else if (subw.equals("bidding")){%>
+								     					
 								     						<mn><center><tr><th><h2 class="font">User</h2></th></center>
 								     							<center><th><h2 class="font">Bid</h2></th></center>
 								     							<center><th><h2 class="font">Date</h2></th></center>
 								     						</tr><%for(int j=0;j<date.size();j++){ %>
-								     						<th><p class="font"><%out.println(buyerUser.get(i));%></p></th>
-															<th><p class="font"><%out.println(userBid.get(i));%></p></th>
-								     						<th><p class="font"><%out.println(date.get(i));%></p></th></mn>
+								     						<tr><th><p class="font"><%out.println(buyerUser.get(j));%></p></th>
+															<th><p class="font"><%out.println(userBid.get(j));%></p></th>
+								     						<th><p class="font"><%out.println(date.get(j));%></p></th></mn></tr>
 								     					
 								    							 <%} %>
 								     							
@@ -784,16 +791,15 @@ left-margin:40px;
 								         				<th><center>
 								         					<table> <tr><th> 
 																		<form method="get" action="account.jsp?&feature=selling&subFeature=old">
-																		<input type="hidden" value="<%out.println(Id.get(i));%>" name="auctionID" >
-																		
 																		<input type="hidden" value="watching" name="feature" >
-																		<input type="hidden" value="bidding" name="sub" >
-																			<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
+																		<input type="hidden" value="bidding" name="subw" >
+																		<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
 																		<button type="submit" class="sideBarButton button2">See Bids</button></form>
 																	</th><th>
 																		<form method="get" action="bid.jsp">
 																			<input type="hidden" value="<%out.println(highestBid.get(i)); %>" name="startingPrice" >
 																		<input type="hidden" value="<%out.println(Id.get(i)); %>" name="auctionId" >
+																		<input type="hidden" value="<%out.println(title.get(i)); %>" name="title" >
 																		<button type="submit" class="sideBarButton button2">Bid</button></form>
 																	</th><th>
 																		<form method="get" action="delete.jsp">
@@ -870,6 +876,7 @@ left-margin:40px;
 			out.print("");
 		}
 		con.close();
+	
 	%>	
 	</div>
 </body>

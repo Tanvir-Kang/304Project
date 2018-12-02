@@ -116,7 +116,7 @@ public class PostAuction extends HttpServlet {
 						java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
 						int lengthOfAuction = Integer.parseInt(endDate);
 						//Adding the # of days the customer has specified their auction to be 
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
 						Calendar cal = Calendar.getInstance();
 						cal.add(Calendar.DAY_OF_MONTH, lengthOfAuction);  
 						String updatedEndDate = sdf.format(cal.getTime());  

@@ -2,7 +2,6 @@ package data;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.*;
 
 import java.text.SimpleDateFormat;
@@ -74,6 +73,29 @@ public class bookUploadServlet extends HttpServlet {
             // connects to the database
         	Connection con = DriverManager.getConnection(url, uid, pw);
         	
+        	String SQL = "SELECT sellerUserName, ISBN from Book";
+			PreparedStatement pstmt = con.prepareStatement(SQL);
+			ResultSet rst = pstmt.executeQuery();
+			boolean checkuser = true;
+			boolean checkISBN = true;
+			while (rst.next()) {
+				if (rst.getString("sellerUserName").equals(user))
+					checkuser = false;
+				if (rst.getString("ISBN").equals(isbn))
+					checkISBN = false;
+			}	
+			boolean canStartAuction = true;
+			if (checkuser == false && checkISBN == false){
+				 message = "You can't post two books with the same ISBN. Redirecting to account page...";
+				 request.setAttribute("Message", message);
+				 getServletContext().getRequestDispatcher("/Message.jsp").forward(request, response);
+				canStartAuction=false;}
+
+			if (canStartAuction) {
+        	
+        	
+        	
+        	
         	String sql = "INSERT INTO Auction (sellerUserName,buyerUserName,startDate, endDate, highestBid) VALUES (?,?,?,?,?)";
 			// code provided by the lab was edited, the injected statement.RETURN_GENERATED_KEYS was turned into a PreparedStatement in the line below
 			PreparedStatement pstmt2 = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -97,8 +119,8 @@ public class bookUploadServlet extends HttpServlet {
             // constructs SQL statement
 			int auctionId = 0;
 			try {
-				String SQL = "SELECT sellerUserName, ISBN from Book";
-				PreparedStatement pstmt = con.prepareStatement(SQL);
+				SQL = "SELECT sellerUserName, ISBN from Book";
+				pstmt = con.prepareStatement(SQL);
 				pstmt2.executeUpdate();
 				ResultSet rss = pstmt.executeQuery();
 
@@ -140,7 +162,7 @@ public class bookUploadServlet extends HttpServlet {
             con.close();
             if (row > 0) {
                 message = "Your book has been posted for sale! Redirecting to account page...";
-            }
+            } }
         } catch (SQLException ex) {
             message = "ERROR: " + ex.getMessage();
             ex.printStackTrace();
@@ -158,6 +180,6 @@ public class bookUploadServlet extends HttpServlet {
              
             // forwards to the message page
             getServletContext().getRequestDispatcher("/Message.jsp").forward(request, response);
-        }
+        } 
     }
 }
