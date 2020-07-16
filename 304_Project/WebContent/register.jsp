@@ -73,9 +73,11 @@ label {
 				<div class="entry">
 					<%
 						// Print prior error register message if present
-						if (session.getAttribute("usernameTaken") != null)
+						if (session.getAttribute("usernameTaken") != null){
 							out.println("<p align='center' style='color:red;'>" + session.getAttribute("usernameTaken").toString()
 									+ "</p>");
+							session.removeAttribute("usernameTaken");
+						}
 					%>
 					Username:<span style="color: red">* </span>
 				</div> <input type="text" id="usern" name="userName" size="50" required>
@@ -95,9 +97,11 @@ label {
 				<div class="entry">
 					<%
 						// Print prior error register message if present
-						if (session.getAttribute("emailTaken") != null)
+						if (session.getAttribute("emailTaken") != null){
 							out.println("<p align='center' style='color:red;'>" + session.getAttribute("emailTaken").toString()
 									+ "</p>");
+							session.removeAttribute("emailTaken");
+						}
 					%>
 					Email Address:<span style="color: red">*</span>
 				</div> <input type="email" id="eml" name="email"
@@ -121,9 +125,11 @@ label {
 		<p>
 			<label for="phoneNum"> <%
  	// Print prior error register message if present
- 	if (session.getAttribute("phoneTaken") != null)
+ 	if (session.getAttribute("phoneTaken") != null){
  		out.println("<p align='center' style='color:red;'>" + session.getAttribute("phoneTaken").toString()
  				+ "</p>");
+ 		session.removeAttribute("phoneTaken");
+ 	}
  %>
 				<div class="entry">Phone Number:</div> <input type="tel" id="pnum"
 				name="phoneNum" size="50">

@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% 
-response.sendRedirect("homepage.jsp");
-%>
+<img src="${pageContext.request.contextPath}/images/pharmText.jpg">
 </body>
 </html>

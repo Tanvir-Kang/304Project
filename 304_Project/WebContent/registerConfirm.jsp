@@ -27,6 +27,10 @@ ZACH -->
 		String lName = request.getParameter("lastName");
 		String pNum = request.getParameter("phoneNum");
 		String bDate = request.getParameter("birthDate");
+		if (pNum.isEmpty() || pNum.equals(""))
+			pNum = null;
+		if (bDate.isEmpty() || bDate.equals(""))
+			pNum = null;
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (java.lang.ClassNotFoundException e) {
@@ -50,10 +54,7 @@ ZACH -->
 				checkuser = false;
 			if (rst.getString("email").equals(email))
 				checkemail = false;
-			if (rst.getString("phonenum").equals(pNum))
-				checkphonenum = false;
 		}
-		con.close();
 		if (checkuser == false)
 			session.setAttribute("usernameTaken", "Sorry! That username is already in use.");
 
@@ -65,29 +66,31 @@ ZACH -->
 
 		if (checkuser == true && checkemail == true && checkphonenum == true) {
 			out.println("<h1>Registration Completed! You will be redirected to the login page shortly...</h1>");
-			SQL = "insert into webUser values (?, ?, ?, ?, ?, ?, ?)";
+			SQL = "insert into webUser values (?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, userN);
 			pstmt.setString(2, userPw);
-			pstmt.setString(3, email);
-			pstmt.setString(4, fName);
-			pstmt.setString(5, lName);
+			pstmt.setString(3, fName);
+			pstmt.setString(4, lName);
+			pstmt.setString(5, email);
+
 			pstmt.setString(6, pNum);
 			pstmt.setString(7, bDate);
+			pstmt.setInt(8, 0);
 			pstmt.executeUpdate();
 			session.removeAttribute("loginMessage");
 			session.removeAttribute("phoneTaken");
 			session.removeAttribute("emailTaken");
 			session.removeAttribute("usernameTaken");
-			
+			con.close();
 	%>
 	<script>
 		setTimeout("document.location.href='login.jsp'", 5000);
 	</script>
 	<%
-		}
-		else {
+		} else {
 			response.sendRedirect("register.jsp");
+			con.close();
 		}
 	%>
 </body>

@@ -1,18 +1,18 @@
 package data;
 
 public class loginDetails {
-	String uid = "zmaludzi";
-	String pw = "32950164";
-	String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_zmaludzi;";
+	String Uid = "group14";
+	String Pw = "304group14";
+	String Url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;databaseName=db_group14;";
 	
 	public String getUid() {
-		return uid;
+		return Uid;
 	}
 	public String getPw() {
-		return pw;
+		return Pw;
 	}
 	public String getUrl() {
-		return url;
+		return Url;
 	}
 	
 }

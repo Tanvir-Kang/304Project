@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Example of Password Protected Page</title>
+<title>Example of only admin accessible page</title>
 </head>
 <body>
 <!-- Copy and paste this line into the top of your jsp page to
 Only allow access to logged in users. -->
-	<%@ include file="auth.jsp"%>
+	<%@ include file="adminAuth.jsp"%>
 	<!-- ^^^^ Copy and paste this line into the top of your jsp page to
 Only allow access to logged in users. -->
 	<%

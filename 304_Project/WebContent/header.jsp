@@ -23,15 +23,20 @@ body {
 
 /* Style the header */
 .header {
-	padding: 80px;
+	padding: 40px;
 	text-align: center;
-	background: #6FBEE7;
+	background: #999999;
 	color: white;
 }
 
 .header h1 {
 	font-size: 40px;
 	font-weight: bolder;
+}
+
+.header img {
+	width: 250px;
+	height: 250px;
 }
 
 nav {
@@ -50,7 +55,6 @@ nav {
 }
 
 nav a {
-	display: flex;
 	float: left;
 	font-family: sans-serif;
 	font-size: 17px;
@@ -60,6 +64,7 @@ nav a {
 	padding-bottom: 11px;
 	padding-left: 10px;
 	text-decoration: none;
+	display: block;
 }
 
 nav a:hover {
@@ -67,11 +72,10 @@ nav a:hover {
 }
 
 nav a.active {
-	background-color: #133054;
+	background-color: #233852;
 }
 
 nav input[type=text] {
-	float: center;
 	padding: 6px;
 	border: none;
 	margin-top: 4px;
@@ -82,12 +86,10 @@ nav input[type=text] {
 }
 
 nav .search-container button {
-	float: center;
 	padding: 6px 10px;
 	margin-top: 4px;
 	margin-bottom: 5px;
-	margin-right: 14px;
-	background: #e1612f;
+	background: #e88956;
 	font-size: 17px;
 	border: none;
 	cursor: pointer;
@@ -106,25 +108,27 @@ nav .search-container button:hover {
 }
 
 #inner {
-	width: 450px;
-	margin: 0 auto;
+	text-align: center;
 }
 </style>
 </head>
 <body>
-	<!-- HEADER -->
+	<!-- HEADER  -->
 	<div class="header">
-		<h1>BookBids</h1>
-		<p>Watch the bids start rolling in.</p>
+		<img src="images/bookbids.png" alt="Logo">
+
 	</div>
 
+	<!-- /HEADER -->
 	<nav>
 		<%
 			String uri = request.getRequestURI();
 			String username = (String) session.getAttribute("authenticatedUser");
 			if (username != null) {
 		%>
-		<a class="nohover">Hi, <%=username%>!</a>
+
+		<a class="nohover">Hi, <%=username%>!
+		</a>
 		<%
 			}
 		%>
@@ -143,9 +147,28 @@ nav .search-container button:hover {
 		<%
 			} else {
 		%>
-		<a href="logout.jsp">Logout</a>
+
+
+
+		<div class="nav-right">
+			<%
+				boolean authenticated = false;
+					if (session.getAttribute("admin") != null)
+						authenticated = ((Boolean) session.getAttribute("admin")).booleanValue();
+					if (authenticated == true) {
+			%>
+			<a style="background-color: #c40000; color: black"
+				href="adminOperations.jsp">Admin Tools</a>
+			<%
+				}
+			%>
+			<a href="account.jsp">My Account</a> <a href="logout.jsp">Logout</a>
+
+		</div>
+
 		<%
 			}
+			if (!uri.equals("/304_Project/listAuctions.jsp")) {
 		%>
 		<div id="inner" class="search-container">
 			<form action="/304_Project/listAuctions.jsp">
@@ -154,10 +177,10 @@ nav .search-container button:hover {
 				<button type="submit">Submit</button>
 			</form>
 		</div>
-		<div class="topnav-right">
-			<a href="#search">Search</a> <a href="#about">About</a>
-		</div>
+		<%
+			}
+		%>
 	</nav>
-	<!-- /HEADER -->
+
 </body>
 </html>
